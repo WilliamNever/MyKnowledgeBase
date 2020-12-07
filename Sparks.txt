@@ -1,0 +1,48 @@
+﻿关于 asp.net 输出文件流：
+
+context.HttpContext.Response.Clear();
+//context.HttpContext.Response.BufferOutput = false;
+context.HttpContext.Response.AddHeader("content-disposition", "attachment; filename=Export.csv");
+context.HttpContext.Response.ContentType = "text/csv";
+context.HttpContext.Response.Write(sb.ToString());
+context.HttpContext.Response.Flush();
+//context.HttpContext.Response.Close();	//输出流时，不要close输出流。直接调用下面语句结束Request.
+context.HttpContext.ApplicationInstance.CompleteRequest();
+
+
+表达式的区别：
+	
+Razor:
+encode:<p>@model.Message</p>
+no encode:<p> @Html.Raw(model.Message) </p>
+
+@Html.Raw(!string.IsNullOrWhiteSpace("sss") ? "sss" : "IsNull")!
+@(!string.IsNullOrWhiteSpace("sss") ? "sss" : "IsNull")!
+	
+Aspx:
+encode:<p><%:model.Message %></p>
+no encode:<p><%= model.Message %></p>
+
+
+https://www.kernel.org/pub/software/scm/git/docs/git-filter-branch.html
+git filter-branch --tree-filter 'rm filename' HEAD
+//force to update Remote branch
+git push origin --force
+
+git reset --hard b52a428624f112ebe0590a7a2f95bfca8351c94d
+git push origin head --force
+
+mvc 向页面写一个tag, 如'<h1></h1>'
+System.Web.Mvc.TagBuilder
+
+MVC action 接收协议动词：
+[AcceptVerbs(HttpVerbs.Get|HttpVerbs.Post)]
+[HttpGet]/[HttpPost]
+
+MSSQLLocalDB[(localdb)\MSSQLLocalDB] to Published local, using the power shell with the command below:
+sqllocaldb h "MSSQLLocalDB" "mylocaldb"
+sqllocaldb -?	// for the command parameters
+
+the result of the shared instance is (localdb)\.\mylocaldb
+
+

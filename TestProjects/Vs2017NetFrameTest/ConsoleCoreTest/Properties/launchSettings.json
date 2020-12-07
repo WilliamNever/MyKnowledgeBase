@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ConsoleCoreTest": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "Key": "Value"
+      }
+    }
+  }
+}

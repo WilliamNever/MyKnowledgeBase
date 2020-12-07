@@ -1,0 +1,93 @@
+﻿	//此方法有待测试执行结果，与下方给的说明冲突
+	public void SaveChanges()
+        {
+            ChangeSet cSet = _db.GetChangeSet();//_db指DataContext
+            if ((cSet.Inserts.Count > 0
+                || cSet.Updates.Count > 0
+                || cSet.Deletes.Count > 0)
+                && !UnitOfWork.IsNotSubmit)
+            {
+                try
+                {
+                    UnitOfWork.SaveChanges(ConflictMode.ContinueOnConflict);//要测试出全部冲突再一起解决冲突
+                }
+                catch (System.Data.Linq.ChangeConflictException)
+                {
+                    foreach (System.Data.Linq.ObjectChangeConflict occ in _db.ChangeConflicts)
+                    {
+                        // 使用当前数据库中的值，覆盖Linq缓存中实体对象的值，即保存数据库中的值。当前新值作废。
+                        occ.Resolve(System.Data.Linq.RefreshMode.OverwriteCurrentValues);
+                    }
+                    UnitOfWork.SaveChanges();
+                }
+              catch (Exception)//如果出现异常，就从数据字典中清除这个键值对
+                {
+                    DbFactory.ClearContextByThread(System.Threading.Thread.CurrentThread, _db);
+              }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+ 假设数据库中有一条记录Record{Field1=5, Field2=6, Field3=7}（以下简写为{5, 6, 7}），A、B两个用户按照如下顺序操作这一条记录：
+(1). A读取该记录，取得的值为{5, 6, 7}，读取完毕后，不对该记录加排他锁；
+(2). B读取该记录，取得的值也为{5, 6, 7}，读取完毕后，不对该记录加排他锁；
+(3). B将该记录修改为{3, 5, 7}，并写回数据库；由于该记录没有被其他用户锁定，且B在修改时该记录的值与第(2)步中读取的值一致，因此可以正常写入数据库；
+(4). A将该记录修改为{5, 8, 9}，并写回数据库；由于A在修改时该记录的值已更新为{3, 5, 7}，与第(1)步中读取的值{5, 6, 7}不一致，因此引发并发冲突；
+
+(1). 覆盖数据值库:{5,8,9}？
+(2). 保留数据库值:{3,5,7}？
+(3). 合并为:{3,8,9}？
+
+
+3.1 通过覆盖数据库值解决并发冲突
+
+try
+{
+    db.SubmitChanges(ConflictMode.ContinueOnConflict); //需要指定为ConflictMode.ContinueOnConflict，要测试出全部冲突再一起解决冲突。否则会再次因并发冲突而跳出。
+}
+catch (ChangeConflictException e)
+{
+    foreach (ObjectChangeConflict occ in db.ChangeConflicts)
+    {
+        occ.Resolve(RefreshMode.KeepCurrentValues); //保留当前值，覆盖数据库中的值。数据库中别人修改的内容，但自己未修改的内容将会被还原为当前读取出的值。适合用于全行更新。
+    }
+}
+db.SubmitChanges(ConflictMode.FailOnFirstConflict); //处理完冲突后，重试
+
+3.2 通过保留数据库值解决并发冲突
+
+try
+{
+    db.SubmitChanges(ConflictMode.ContinueOnConflict);
+}
+catch (ChangeConflictException e)
+{
+    foreach (ObjectChangeConflict occ in db.ChangeConflicts)
+    {
+        occ.Resolve(RefreshMode.OverwriteCurrentValues);//以数据库中的值，重写当前值。保存数据库中的值。当前修改的值作废。适合用于修改后必须审核式的更新，即修改后必须查看修改内容重新加载。
+    }
+}
+db.SubmitChanges(ConflictMode.FailOnFirstConflict); //处理完冲突后，重试
+
+3.3 通过与数据库值合并解决并发冲突
+
+try
+{
+    db.SubmitChanges(ConflictMode.ContinueOnConflict);
+}
+catch (ChangeConflictException e)
+{
+    foreach (ObjectChangeConflict occ in db.ChangeConflicts)
+    {
+        occ.Resolve(RefreshMode.KeepChanges);//保留数据库中的值和当前值，进行合并处理。保存数据库中未被当前修改的字段，当前修改的字段按新值提交。适合用于共同修改一行中的各个部分。
+     }
+}
+db.SubmitChanges(ConflictMode.FailOnFirstConflict); //处理完冲突后，重试

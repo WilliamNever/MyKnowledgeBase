@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div class="row">
+    <div class="col-md-12">
+        @Html.ActionLink("Users", "Index", "UserInfors")
+        |@Html.ActionLink("Orders", "Index", "OrdersInfors")
+        |@Html.ActionLink("EFFromDBReadUser","Index", "EFFromDBProcess")
+    </div>
+</div>
+
+<div class="jumbotron">
+    <h1>ASP.NET</h1> @Html.CheckBox("chkabc",true,new { value="33" })
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+
+                    <ul class="nav nav-pills">
+                        <li class="active"><a href="javascript:void(0);">主页</a></li>
+                        <li><a href="javascript:void(0);"> 个人 信息</a></li>
+                        <li class="disabled"><a href="javascript:void(0);"> 作品</a></li>
+                        <li><a href="javascript:void(0);"> 图书</a></li>
+                    </ul>
+
+                <h2>Get more libraries</h2>
+                <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+                <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <nav class="navbar navbar-default" role="navigation">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="#">菜鸟教程</a>
+                        </div>
+                        <div>
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="javascript:void(0);">iOS</a></li>
+                                <li><a href="javascript:void(0);">SVN</a></li>
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                                        Java
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0);">jmeter</a></li>
+                                        <li><a href="javascript:void(0);">EJB</a></li>
+                                        <li><a href="javascript:void(0);">Jasper Report</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="javascript:void(0);">分离的链接</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="javascript:void(0);">另一个分离的链接</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <h2>Web Hosting</h2>
+                <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+                <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+            </div>
+    </div>

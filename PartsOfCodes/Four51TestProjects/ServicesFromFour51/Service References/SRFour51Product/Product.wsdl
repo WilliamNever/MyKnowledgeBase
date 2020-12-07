@@ -1,0 +1,795 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://four51.com/services/Product" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://four51.com/services/Product" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://four51.com/services/Product">
+      <s:element name="DeleteProduct">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProductInteropIDs" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="SharedSecret" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DeleteProductResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteProductResult" type="tns:ArrayOfErrorReport" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfErrorReport">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ErrorReport" type="tns:ErrorReport" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ErrorReport">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="InteropID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdateProductInventory">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InventoryUpdates" type="tns:ArrayOfInventory" />
+            <s:element minOccurs="0" maxOccurs="1" name="SharedSecret" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInventory">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Inventory" type="tns:Inventory" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Inventory">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ProductInteropID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VariantInteropID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AvailableQuantity" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DecrementByReservedQuantity" nillable="true" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdateProductInventoryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateProductInventoryResult" type="tns:ArrayOfErrorReport" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerateMissingInteropIDs">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SharedSecret" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerateMissingInteropIDsResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="SaveProducts">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Products" type="tns:ArrayOfProductProperties" />
+            <s:element minOccurs="0" maxOccurs="1" name="SharedSecret" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfProductProperties">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ProductProperties" type="tns:ProductProperties" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProductProperties">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="APIInteropID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="InteropID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="NewInteropID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProductID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UNSPSC" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UnitOfMeasure" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:ProductType" />
+          <s:element minOccurs="1" maxOccurs="1" name="StandardOrders" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReplenishmentOrders" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="PriceRequests" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="QuantityMultiplier" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ShipWeight" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="TrackInventory" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="AllowOrdersToExceedInventory" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="UseVariantLevelInventoryTracking" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="InventoryNotificationPoint" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="DisplayInventoryToBuyer" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="SmallImage" type="tns:ProductFile" />
+          <s:element minOccurs="0" maxOccurs="1" name="LargeImage" type="tns:ProductFile" />
+          <s:element minOccurs="1" maxOccurs="1" name="Active" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="OutboundPunchoutTemplateName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Variants" type="tns:ArrayOfVariantProperties" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="ProductType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Static" />
+          <s:enumeration value="VariableText" />
+          <s:enumeration value="Kit" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ProductFile">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="File" type="s:base64Binary" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfVariantProperties">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="VariantProperties" type="tns:VariantProperties" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="VariantProperties">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="InteropID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="APIInteropID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VariantID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProductInteropID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Image" type="tns:ProductFile" />
+          <s:element minOccurs="1" maxOccurs="1" name="Active" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="NewInteropID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SaveProductsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveProductsResult" type="tns:ArrayOfErrorReport" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SavePriceSchedules">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PriceSchedules" type="tns:ArrayOfPriceScheduleProperties" />
+            <s:element minOccurs="0" maxOccurs="1" name="SharedSecret" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPriceScheduleProperties">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PriceScheduleProperties" type="tns:PriceScheduleProperties" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PriceScheduleProperties">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ProductInteropID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="OrderType" type="tns:OrderType" />
+          <s:element minOccurs="1" maxOccurs="1" name="ApplySalesTax" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="ApplyShipping" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="RestrictedQuantitySelection" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="MinimumQuantity" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="MaximumQuantity" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PriceBreaks" type="tns:ArrayOfPriceBreak" />
+          <s:element minOccurs="1" maxOccurs="1" name="UseCumulativeQuantity" nillable="true" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="OrderType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Standard" />
+          <s:enumeration value="Replenishment" />
+          <s:enumeration value="PriceRequest" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfPriceBreak">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PriceBreak" type="tns:PriceBreak" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PriceBreak">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Quantity" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Price" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SavePriceSchedulesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SavePriceSchedulesResult" type="tns:ArrayOfErrorReport" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeletePriceSchedule">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PriceSchedules" type="tns:ArrayOfPriceScheduleID" />
+            <s:element minOccurs="0" maxOccurs="1" name="SharedSecret" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPriceScheduleID">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PriceScheduleID" type="tns:PriceScheduleID" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PriceScheduleID">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ProductInteropID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PriceScheduleName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DeletePriceScheduleResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeletePriceScheduleResult" type="tns:ArrayOfErrorReport" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveCategoryAssignments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CategoryAssignments" type="tns:ArrayOfCategoryAssignment" />
+            <s:element minOccurs="0" maxOccurs="1" name="SharedSecret" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfCategoryAssignment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CategoryAssignment" type="tns:CategoryAssignment" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CategoryAssignment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ProductInteropID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CategoryInteropID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ListOrder" nillable="true" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SaveCategoryAssignmentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveCategoryAssignmentsResult" type="tns:ArrayOfErrorReport" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteCategoryAssignments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CategoryAssignments" type="tns:ArrayOfCategoryAssignment" />
+            <s:element minOccurs="0" maxOccurs="1" name="SharedSecret" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteCategoryAssignmentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteCategoryAssignmentsResult" type="tns:ArrayOfErrorReport" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SavePriceScheduleAssignments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PriceScheduleAssignments" type="tns:ArrayOfPriceScheduleAssignment" />
+            <s:element minOccurs="0" maxOccurs="1" name="SharedSecret" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPriceScheduleAssignment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PriceScheduleAssignment" type="tns:PriceScheduleAssignment" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PriceScheduleAssignment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ProductInteropID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VariantInteropID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BuyerCompanyInteropID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AssignmentLevel" type="tns:PartyType" />
+          <s:element minOccurs="0" maxOccurs="1" name="PartyInteropID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StandardOrderScheduleName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReplenishmentOrderScheduleName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PriceRequestOrderScheduleName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="PartyType">
+        <s:restriction base="s:string">
+          <s:enumeration value="User" />
+          <s:enumeration value="Group" />
+          <s:enumeration value="Company" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="SavePriceScheduleAssignmentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SavePriceScheduleAssignmentsResult" type="tns:ArrayOfErrorReport" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveVariants">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Variants" type="tns:ArrayOfVariantProperties" />
+            <s:element minOccurs="0" maxOccurs="1" name="SharedSecret" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveVariantsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveVariantsResult" type="tns:ArrayOfErrorReport" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteVariants">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Variants" type="tns:ArrayOfVariantProperties" />
+            <s:element minOccurs="0" maxOccurs="1" name="SharedSecret" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteVariantsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteVariantsResult" type="tns:ArrayOfErrorReport" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchVariantsByProduct">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProductInteropIDs" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="SharedSecret" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchVariantsByProductResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchVariantsByProductResult" type="tns:ArrayOfVariantProperties" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListProducts">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SharedSecret" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListProductsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListProductsResult" type="tns:ArrayOfProductProperties" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerateMissingVariantInteropIDs">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProductInteropIDs" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="SharedSecret" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerateMissingVariantInteropIDsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GenerateMissingVariantInteropIDsResult" type="tns:ArrayOfErrorReport" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="DeleteProductSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteProduct" />
+  </wsdl:message>
+  <wsdl:message name="DeleteProductSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateProductInventorySoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateProductInventory" />
+  </wsdl:message>
+  <wsdl:message name="UpdateProductInventorySoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateProductInventoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerateMissingInteropIDsSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerateMissingInteropIDs" />
+  </wsdl:message>
+  <wsdl:message name="GenerateMissingInteropIDsSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerateMissingInteropIDsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveProductsSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveProducts" />
+  </wsdl:message>
+  <wsdl:message name="SaveProductsSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveProductsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SavePriceSchedulesSoapIn">
+    <wsdl:part name="parameters" element="tns:SavePriceSchedules" />
+  </wsdl:message>
+  <wsdl:message name="SavePriceSchedulesSoapOut">
+    <wsdl:part name="parameters" element="tns:SavePriceSchedulesResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeletePriceScheduleSoapIn">
+    <wsdl:part name="parameters" element="tns:DeletePriceSchedule" />
+  </wsdl:message>
+  <wsdl:message name="DeletePriceScheduleSoapOut">
+    <wsdl:part name="parameters" element="tns:DeletePriceScheduleResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveCategoryAssignmentsSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveCategoryAssignments" />
+  </wsdl:message>
+  <wsdl:message name="SaveCategoryAssignmentsSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveCategoryAssignmentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteCategoryAssignmentsSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteCategoryAssignments" />
+  </wsdl:message>
+  <wsdl:message name="DeleteCategoryAssignmentsSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteCategoryAssignmentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SavePriceScheduleAssignmentsSoapIn">
+    <wsdl:part name="parameters" element="tns:SavePriceScheduleAssignments" />
+  </wsdl:message>
+  <wsdl:message name="SavePriceScheduleAssignmentsSoapOut">
+    <wsdl:part name="parameters" element="tns:SavePriceScheduleAssignmentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveVariantsSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveVariants" />
+  </wsdl:message>
+  <wsdl:message name="SaveVariantsSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveVariantsResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteVariantsSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteVariants" />
+  </wsdl:message>
+  <wsdl:message name="DeleteVariantsSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteVariantsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchVariantsByProductSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchVariantsByProduct" />
+  </wsdl:message>
+  <wsdl:message name="SearchVariantsByProductSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchVariantsByProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListProductsSoapIn">
+    <wsdl:part name="parameters" element="tns:ListProducts" />
+  </wsdl:message>
+  <wsdl:message name="ListProductsSoapOut">
+    <wsdl:part name="parameters" element="tns:ListProductsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerateMissingVariantInteropIDsSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerateMissingVariantInteropIDs" />
+  </wsdl:message>
+  <wsdl:message name="GenerateMissingVariantInteropIDsSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerateMissingVariantInteropIDsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ProductSoap">
+    <wsdl:operation name="DeleteProduct">
+      <wsdl:input message="tns:DeleteProductSoapIn" />
+      <wsdl:output message="tns:DeleteProductSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProductInventory">
+      <wsdl:input message="tns:UpdateProductInventorySoapIn" />
+      <wsdl:output message="tns:UpdateProductInventorySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerateMissingInteropIDs">
+      <wsdl:input message="tns:GenerateMissingInteropIDsSoapIn" />
+      <wsdl:output message="tns:GenerateMissingInteropIDsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveProducts">
+      <wsdl:input message="tns:SaveProductsSoapIn" />
+      <wsdl:output message="tns:SaveProductsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SavePriceSchedules">
+      <wsdl:input message="tns:SavePriceSchedulesSoapIn" />
+      <wsdl:output message="tns:SavePriceSchedulesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePriceSchedule">
+      <wsdl:input message="tns:DeletePriceScheduleSoapIn" />
+      <wsdl:output message="tns:DeletePriceScheduleSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveCategoryAssignments">
+      <wsdl:input message="tns:SaveCategoryAssignmentsSoapIn" />
+      <wsdl:output message="tns:SaveCategoryAssignmentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCategoryAssignments">
+      <wsdl:input message="tns:DeleteCategoryAssignmentsSoapIn" />
+      <wsdl:output message="tns:DeleteCategoryAssignmentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SavePriceScheduleAssignments">
+      <wsdl:input message="tns:SavePriceScheduleAssignmentsSoapIn" />
+      <wsdl:output message="tns:SavePriceScheduleAssignmentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveVariants">
+      <wsdl:input message="tns:SaveVariantsSoapIn" />
+      <wsdl:output message="tns:SaveVariantsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteVariants">
+      <wsdl:input message="tns:DeleteVariantsSoapIn" />
+      <wsdl:output message="tns:DeleteVariantsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchVariantsByProduct">
+      <wsdl:input message="tns:SearchVariantsByProductSoapIn" />
+      <wsdl:output message="tns:SearchVariantsByProductSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListProducts">
+      <wsdl:input message="tns:ListProductsSoapIn" />
+      <wsdl:output message="tns:ListProductsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerateMissingVariantInteropIDs">
+      <wsdl:input message="tns:GenerateMissingVariantInteropIDsSoapIn" />
+      <wsdl:output message="tns:GenerateMissingVariantInteropIDsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ProductSoap" type="tns:ProductSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DeleteProduct">
+      <soap:operation soapAction="http://four51.com/services/Product/DeleteProduct" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProductInventory">
+      <soap:operation soapAction="http://four51.com/services/Product/UpdateProductInventory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateMissingInteropIDs">
+      <soap:operation soapAction="http://four51.com/services/Product/GenerateMissingInteropIDs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveProducts">
+      <soap:operation soapAction="http://four51.com/services/Product/SaveProducts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SavePriceSchedules">
+      <soap:operation soapAction="http://four51.com/services/Product/SavePriceSchedules" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePriceSchedule">
+      <soap:operation soapAction="http://four51.com/services/Product/DeletePriceSchedule" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveCategoryAssignments">
+      <soap:operation soapAction="http://four51.com/services/Product/SaveCategoryAssignments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCategoryAssignments">
+      <soap:operation soapAction="http://four51.com/services/Product/DeleteCategoryAssignments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SavePriceScheduleAssignments">
+      <soap:operation soapAction="http://four51.com/services/Product/SavePriceScheduleAssignments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveVariants">
+      <soap:operation soapAction="http://four51.com/services/Product/SaveVariants" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteVariants">
+      <soap:operation soapAction="http://four51.com/services/Product/DeleteVariants" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchVariantsByProduct">
+      <soap:operation soapAction="http://four51.com/services/Product/SearchVariantsByProduct" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListProducts">
+      <soap:operation soapAction="http://four51.com/services/Product/ListProducts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateMissingVariantInteropIDs">
+      <soap:operation soapAction="http://four51.com/services/Product/GenerateMissingVariantInteropIDs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ProductSoap12" type="tns:ProductSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DeleteProduct">
+      <soap12:operation soapAction="http://four51.com/services/Product/DeleteProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProductInventory">
+      <soap12:operation soapAction="http://four51.com/services/Product/UpdateProductInventory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateMissingInteropIDs">
+      <soap12:operation soapAction="http://four51.com/services/Product/GenerateMissingInteropIDs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveProducts">
+      <soap12:operation soapAction="http://four51.com/services/Product/SaveProducts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SavePriceSchedules">
+      <soap12:operation soapAction="http://four51.com/services/Product/SavePriceSchedules" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePriceSchedule">
+      <soap12:operation soapAction="http://four51.com/services/Product/DeletePriceSchedule" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveCategoryAssignments">
+      <soap12:operation soapAction="http://four51.com/services/Product/SaveCategoryAssignments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCategoryAssignments">
+      <soap12:operation soapAction="http://four51.com/services/Product/DeleteCategoryAssignments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SavePriceScheduleAssignments">
+      <soap12:operation soapAction="http://four51.com/services/Product/SavePriceScheduleAssignments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveVariants">
+      <soap12:operation soapAction="http://four51.com/services/Product/SaveVariants" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteVariants">
+      <soap12:operation soapAction="http://four51.com/services/Product/DeleteVariants" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchVariantsByProduct">
+      <soap12:operation soapAction="http://four51.com/services/Product/SearchVariantsByProduct" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListProducts">
+      <soap12:operation soapAction="http://four51.com/services/Product/ListProducts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateMissingVariantInteropIDs">
+      <soap12:operation soapAction="http://four51.com/services/Product/GenerateMissingVariantInteropIDs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Product">
+    <wsdl:port name="ProductSoap" binding="tns:ProductSoap">
+      <soap:address location="http://test.four51.com/services/Product.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ProductSoap12" binding="tns:ProductSoap12">
+      <soap12:address location="http://test.four51.com/services/Product.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

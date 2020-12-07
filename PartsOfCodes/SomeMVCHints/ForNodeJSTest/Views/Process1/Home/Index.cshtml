@@ -1,0 +1,9 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Process1.HomeController.Index</h2>
+<p>Area is: @ViewContext.RouteData.DataTokens["area"]</p>
+@Html.RouteLink("Goto Main Page", "Default", new { controller = "Home", Action="Index" })
+

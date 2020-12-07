@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ForMyTestBase64Read</name>
+    </assembly>
+    <members>
+        <member name="F:ForMyTestBase64Read.ConfirmPWDWindow.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ForMyTestBase64Read.ConfirmPWDWindow.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ForMyTestBase64Read.ConfirmPWDWindow.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ForMyTestBase64Read.NewForm">
+            <summary>
+            the user interface of the applicaion. it is the child of the dll of Base64DeEncoders.Base64DeEncoders
+            this class is the function extends of base.
+            </summary>
+        </member>
+        <member name="M:ForMyTestBase64Read.NewForm.#ctor">
+            <summary>
+            for structure
+            </summary>
+            <returns>to create a obj</returns>
+        </member>
+        <member name="F:ForMyTestBase64Read.NewForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ForMyTestBase64Read.NewForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ForMyTestBase64Read.NewForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ForMyTestBase64Read.Program">
+            <summary>
+            main processing, it is the entrance of the application
+            </summary>
+            <remarks>main</remarks>
+        </member>
+        <member name="M:ForMyTestBase64Read.Program.Main">
+            <summary>
+            The main entry point for the application.
+            </summary>
+            <remarks>called by system</remarks>
+        </member>
+        <member name="T:ForMyTestBase64Read.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:ForMyTestBase64Read.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:ForMyTestBase64Read.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>

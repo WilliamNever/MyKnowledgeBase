@@ -1,0 +1,14 @@
+Response.Close -
+Close terminates the connection with the client in an abrupt manner, and is not intended for normal HTTP request processing. This is the kind of thing you might do if your server was being attacked by a malicious HTTP client.
+
+Response.End -
+Raise ThreadAbortException to abort the thread. If the End method is not able to raise a ThreadAbortException, it will instead *flush* the response bytes to the client, but it does this *synchronously* which is really bad for performance.
+
+The above functions never use!!!
+
+Strongly recommend to invoke - 
+HttpApplication.CompleteRequest / HttpContext.ApplicationInstance.CompleteRequest()
+It is a better way to end a request. 
+
+
+Reference to 'https://blogs.msdn.microsoft.com/aspnetue/2010/05/25/response-end-response-close-and-how-customer-feedback-helps-us-improve-msdn-documentation/'

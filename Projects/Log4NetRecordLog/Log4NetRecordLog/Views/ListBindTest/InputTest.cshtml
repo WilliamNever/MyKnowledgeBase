@@ -1,0 +1,55 @@
+﻿@model Log4NetRecordLog.ViewModels.PageInputClass
+
+@{
+    ViewBag.Title = "InputTest";
+}
+
+<h2>InputTest</h2>
+
+<div class="row">
+    @using (Html.BeginForm(actionName: "InputTest", controllerName: "ListBindTest", method: FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+    <div>Input Areas:</div>
+    <div class="form-inline">@Html.DisplayNameFor(m => m.Name)</div>
+    <div class="form-inline">
+        @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-inline">@Html.DisplayNameFor(m => m.PWD)</div>
+    <div class="form-inline">
+        @Html.EditorFor(m => m.PWD, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(m => m.PWD, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-inline">@Html.DisplayNameFor(m => m.Age)</div>
+    <div class="form-inline">
+        @*@Html.EditorFor(m => m.Age, new { htmlAttributes = new { @class = "form-control" } })*@
+        @Html.TextBoxFor(m => m.Age, htmlAttributes: new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Age, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-inline">@Html.DisplayNameFor(m => m.IInfor)</div>
+    <div class="form-inline">
+        @Html.EditorFor(m => m.IInfor, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(m => m.IInfor, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-inline"><button type="submit">Submit</button></div>
+    }
+
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<div class="row">
+    @Html.ValidationSummary(true)
+</div>
+
+<div class="row">
+    <div>Show Infors:</div>
+    <div>
+        @Html.DisplayFor(m=>m)
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,6 @@
+<PackageReference Include="CompareNETObjects" Version="4.63.0" />
+
+var compare = new KellermanSoftware.CompareNetObjects.CompareLogic();
+//compare.Config.AttributesToIgnore.Add(typeof(Contracts.Attributes.CompareIgnoreAttribute));
+var rst = compare.Compare(ExpectionOrder, result);
+var diff = rst.Differences;

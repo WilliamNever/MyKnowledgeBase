@@ -1,0 +1,21 @@
+﻿@model LoginAuthenticationTest.Models.CommonPageInforViewModel
+
+@{
+    ViewData["Title"] = "LoginedPage";
+    Layout = "~/Views/Shared/_Layout_AccountLoginTest.cshtml";
+}
+
+<h2>LoginedPage</h2>
+
+<div>
+    <h4>CommonPageInforViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PageName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PageName)
+        </dd>
+    </dl>
+</div>

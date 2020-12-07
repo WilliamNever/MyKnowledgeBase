@@ -1,0 +1,36 @@
+﻿EF对数据库视图的使用，说明：
+
+当前代码为从数据库建模【DB first】模式下，手动增对于视图的使用。
+未测试 code first 状态下，是否会自动生成视图，或者手动增加视图引用后会引发EF的Migration.
+
+当前视图状态：有3个视图返回的数据列是一样的。但是每个视图里面所过滤的条件不一样。所以建立了数据实体基类和数据对应视图基类。
+初始人DBContext时通过重写
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Configurations.Add(new vw_WIMSPSO_STAPLES_Query_Map());
+            modelBuilder.Configurations.Add(new vw_WIMSPSO_HRB_Query_Map());
+            modelBuilder.Configurations.Add(new vw_WIMSPSO_Query_Map());
+        }
+方法将每个视图对应实体建立起来
+        public DbSet<vw_WIMSPSO_Staples> vw_WIMSPSO_Stapleses { get; set; }
+        public DbSet<vw_WIMSPSO_HRB> vw_WIMSPSO_HRBs { get; set; }
+        public DbSet<vw_WIMSPSO_TAYLOR> vw_WIMSPSO_TAYLORs { get; set; }
+
+
+代码说明：
+OrderDataContext.cs	DBContext类
+OrderTrackLogic.cs	在DBContext之上封装的逻辑处理类
+vw_WIMSPSO.cs		数据返回对应实体基类
+vw_WIMSPSOMap.cs	数据对应视图基类
+
+    #region 实际视图对应类
+    public class vw_WIMSPSO_STAPLES_Query_Map : vw_WIMSPSOMap<vw_WIMSPSO_Staples>{public vw_WIMSPSO_STAPLES_Query_Map() : base("vw_WIMSPSO_STAPLES_Query"){}}
+    public class vw_WIMSPSO_HRB_Query_Map : vw_WIMSPSOMap<vw_WIMSPSO_HRB>{public vw_WIMSPSO_HRB_Query_Map() : base("vw_WIMSPSO_HRB_Query"){}}
+    public class vw_WIMSPSO_Query_Map : vw_WIMSPSOMap<vw_WIMSPSO_TAYLOR>{public vw_WIMSPSO_Query_Map() : base("vw_WIMSPSO_Query"){}}
+    #endregion
+
+    #region 实际数据实体类
+    public class vw_WIMSPSO_Staples : vw_WIMSPSO { }
+    public class vw_WIMSPSO_HRB : vw_WIMSPSO { }
+    public class vw_WIMSPSO_TAYLOR : vw_WIMSPSO { }
+    #endregion

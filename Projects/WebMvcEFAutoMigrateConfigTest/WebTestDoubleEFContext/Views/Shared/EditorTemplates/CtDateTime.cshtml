@@ -1,0 +1,43 @@
+﻿@model DateTime?
+
+@{
+    DateTime CheckDateTime = DateTime.Now;
+    if (Model.HasValue)
+    {
+        CheckDateTime = Model.Value;
+    }
+
+    List<SelectListItem> days = new List<SelectListItem>();
+    for (int i = 1; i <= 31;i++ )
+    {
+        days.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString(), Selected = (i == CheckDateTime.Day ? true : false) });
+    }
+
+    List<SelectListItem> months = new List<SelectListItem>();
+    for (int i = 1; i <= 12; i++)
+    {
+        months.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString(), Selected = (i == CheckDateTime.Month ? true : false) });
+    }
+
+    List<SelectListItem> years = new List<SelectListItem>();
+
+    int prevYearCount = ViewBag.PreviousYearCount;
+    int nextYearCount = ViewBag.NextYearCount;
+
+    for (int i = CheckDateTime.Year - prevYearCount; i <= CheckDateTime.Year + nextYearCount; i++)
+    {
+        years.Add(new SelectListItem() { Text = i.ToString(), Value = i.ToString(), Selected = (i == CheckDateTime.Year ? true : false) });
+    }
+}
+
+<br /><br />
+@*@Html.DropDownList("days", days)
+@Html.DropDownList("months", months)
+@Html.DropDownList("years", years)*@
+
+
+@Html.DropDownListFor(m=> CheckDateTime.Day,days, new { @class = "form-inline" })
+@Html.DropDownListFor(m => CheckDateTime.Month, months, new { @class = "form-inline" })
+@Html.DropDownListFor(m => CheckDateTime.Year, years, new { @class = "form-inline" })
+
+<br /><br />

@@ -1,0 +1,11 @@
+﻿class B {
+	public B(){}
+}
+
+class A:B
+{
+	public A(){}
+	public A(string str){}
+}
+
+当A调用构造函数且此构造函数未明确它所对应的父级构造函数时，此时程序都会运行父级的空参构造函数。

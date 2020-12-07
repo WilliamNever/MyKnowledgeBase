@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@using WebTestForAngularJs.Models.ViewModels;
+@using WebTestForAngularJs.Models.ViewParamModels; 
+@section HeaderScript
+{
+
+}
+
+<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+<div id="contentXX"></div>
+<div id="Exp01"></div>
+<div id="Exp01ex"></div>
+<div id="Exp01ex01"></div>
+<div id="Exp02"></div>
+<div id="Exp03"></div>
+<hr/>
+<p>
+    <div id="Exp04" class="nlc"></div>
+    <div id="myTestID" class="nlc"></div>
+</p>
+<hr/>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+</div>
+<div class="row">
+    <div id="ShowListFromAjax"></div>
+</div>
+<div class="row" id="ToShowUsInforListServerSide">
+    @Html.React("UsInforListServerSide", new
+{
+    initialData = new List<UsersInfor>(),
+    isLoaded = false,
+    txtStatus = "",
+    ResponseHeaders = new
+    {
+        ReturnHeader = ""
+    },
+    pollInterval = 2000,
+    url = Url.Action("GetInfors", "home"),
+}, containerId: "ToShowUsInforListServerSide")
+</div>
+<div class="row" id="showApp2Server">
+    @Html.React("App2Server", new { },"div", "showApp2Server")
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/react/react.js"></script>
+    <script src="~/Scripts/react/react-dom.js"></script>
+
+    @*<script src="~/Scripts/reactCustom/BasicComponents.jsx"></script>
+    <script src="~/Scripts/reactCustom/T1.jsx"></script>
+    <script src="~/Scripts/reactCustom/ListTest.jsx"></script>*@
+
+    @*<script src="@Url.Content("~/Scripts/reactCustom/ListTest2ServerRendering.jsx")"></script>*@
+    @Scripts.Render("~/scripts/reactCustom/main")
+    @Html.ReactInitJavaScript()
+
+}

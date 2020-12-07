@@ -1,0 +1,97 @@
+﻿ILoggerFactory loggerFactory = new LoggerFactory(); //create a logger factory
+loggerFactory.AddNLog();	//begin to log, the method is a external method.
+NLog.LogManager.LoadConfiguration(@"nlog.config");	//load nlog config file.
+NLog.LogManager.Configuration.Variables["connectionString"] = "******A connection string******";
+//to set value that is indicated in nlog.config file. Such as: ${var:connectionString}
+
+// To create the logger object, there are two methods.
+ILogger<CachingService> logger = new Logger<CachingService>(loggerFactory); //Create ILogger object
+var loggerP = NLog.LogManager.LogFactory.GetLogger("aaP");	//Create Logger object
+
+
+路由规则(Rules)
+
+   <rules />区域定义了日志的路由规则。每一个路由表项就是一个<logger />元素。<logger />有以下属性：
+
+    name - 日志源/记录者的名字 (允许使用通配符*)
+    minlevel - 该规则所匹配日志范围的最低级别
+    maxlevel - 该规则所匹配日志范围的最高级别
+    level - 该规则所匹配的单一日志级别
+    levels - 该规则所匹配的一系列日志级别，由逗号分隔。
+    writeTo - 规则匹配时日志应该被写入的一系列目标，由逗号分隔。
+    final - 标记当前规则为最后一个规则。其后的规则即时匹配也不会被运行。
+
+   如：
+
+    <logger name="Name.Space.Class1" minlevel="Debug" writeTo="f1" /> - 名字空间Name.Space下的Class1这个类的所有级别等于或者高于Debug的日志信息都写入到“f1”这个目标里。
+    <logger name="Name.Space.Class1" levels="Debug,Error" writeTo="f1" /> -名字空间Name.Space下的Class1这个类的所有级别等于Debug或Error的日志信息都写入到“f1”这个目标里。
+    <logger name="Name.Space.*" writeTo="f3,f4" /> -名字空间Name.Space下所有类的所有级别的日志信息都写入到“f3”和“f4”这两个目标里。
+    <logger name="Name.Space.*" minlevel="Debug" maxlevel="Error" final="true" /> - 名字空间Name.Space下所有类的、级别在Debug和Error之间的(包括Debug,Info,Warn,Error) 日志信息都不会被记录(因为这条规则没有定义writeTo)，同时其它后续规则也都会被忽略(因为这里设置了final="true")。
+
+
+
+****************************Example for nlog config file*******************************************
+
+<?xml version="1.0" encoding="utf-8" ?>
+<nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      autoReload="true"
+      throwExceptions="false"
+      internalLogLevel="Error"
+      internalLogFile="${basedir}\logs\internal-nlog.txt">
+  <extensions>
+    <add assembly="NLog.Web.AspNetCore"/>
+  </extensions>
+  <targets>
+    <target xsi:type="Null"
+            name="blackhole" />
+
+    <target xsi:type="Database"
+            name="database">
+      <connectionString>${var:connectionString}</connectionString>
+      <commandText>
+        INSERT INTO [dbo].[LogEntries]
+        ([Host]
+        ,[Level]
+        ,[Logger]
+        ,[Message]
+        ,[TimeStamp])
+        VALUES
+        (@host
+        ,@level
+        ,@logger
+        ,@msg
+        ,getutcdate())
+      </commandText>
+      <parameter name="@host" layout="${machinename}" />
+      <parameter name="@level" layout="${level}" />
+      <parameter name="@logger" layout="${logger}" />
+      <parameter name="@msg" layout="${message}${newline}${exception:format=tostring}" />
+    </target>
+    <target xsi:type="Mail" name="infoMail"
+            smtpServer="**********"
+            smtpPort="25"
+            smtpAuthentication="Ntlm"
+            enableSsl="false"
+            addNewLines="true"
+            from="No-Reply@TaylorCommunications.com"
+            to="To mail address"
+            subject="Bos.Api errors"
+            header="==============="
+            body="${newline}${message}${newline}"
+            footer="================" />
+  </targets>
+  <rules>
+    <!--Skip Microsoft logs and so log only own logs-->
+    <!--Added a fake comment to test checkins-->
+    <logger name="Microsoft.*" minlevel="Trace" writeTo="blackhole" final="true" />
+    <logger name="IdentityServer4.*" minlevel="Trace" writeTo="blackhole" final="true" />
+    <logger name="IdentityModel.*" minlevel="Trace" writeTo="blackhole" final="true" />
+
+    <!--Also log to the database-->
+    <logger name="*" minlevel="Error" writeTo="database" />
+    <logger name="*" minlevel="Error" writeTo="infoMail" />
+  </rules>
+</nlog>
+
+

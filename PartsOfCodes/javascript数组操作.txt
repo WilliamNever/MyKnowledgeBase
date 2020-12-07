@@ -1,0 +1,30 @@
+﻿<script type="text/javascript">
+    $(function() {
+        $("#go").click(function() {
+            var models = [];
+            $.each($("table tr"), function(i, item) {
+                var ProductName = $(item).find("[name=ProductName]").val();
+                var SupplierID = $(item).find("[name=SupplierID]").val();
+                var CategoryID = $(item).find("[name=CategoryID]").val();
+                models.push({ ProductName: ProductName, SupplierID: SupplierID, CategoryID: CategoryID });
+            });
+
+            $.ajax({
+                url: '../../Home/ReceiveData',
+                data: JSON.stringify(models),
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function(msg) {
+                    alert(msg);
+                }
+            });
+        });
+    })
+</script>
+
+<script type="text/javascript">
+//数组排序, 主次键排序，filter查询子数组
+var list=[{aa:1,bb:10},{aa:3,bb:1},{aa:1,bb:5},{aa:5,bb:1}];
+list.sort(function(x,y){if(x.aa==y.aa)return x.bb>y.bb; else return x.aa>y.aa;});
+list.filter(function (x) {return x.aa==1 && x.bb==10; });//如果没有查到结果则返回：[]
+</script>

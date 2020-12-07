@@ -1,0 +1,28 @@
+﻿@model ForNodeJSTest.Models.LoginClass
+
+@{
+    ViewBag.Title = "Login";
+}
+
+@section HeaderScript
+{
+    <style type="text/css">
+        ul#ulContents li {
+            padding:10px 0;
+        }
+    </style>
+}
+
+<h2>Login</h2>
+<dialog open="open">此标签横向居中，但纵向不居中。出现在所定义的行上。</dialog>
+
+@using (Html.BeginForm())
+{
+    <ul id="ulContents">
+        <li><div>@Html.DisplayNameFor(x=>x.UsName):</div><div>@Html.TextBoxFor(lc => lc.UsName)</div></li>
+        <li><div>@Html.DisplayNameFor(x=>x.Password):</div><div>@Html.TextBoxFor(lc => lc.Password)</div></li>
+        <li><div><input type="submit" value="Submit" /></div></li>
+    </ul>
+}
+
+

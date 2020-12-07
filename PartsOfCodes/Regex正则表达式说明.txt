@@ -1,0 +1,354 @@
+﻿http://blog.csdn.net/iwanttoknow7/article/details/5773285
+
+1。^/d+$　　//匹配非负整数（正整数 + 0） 
+2。^[0-9]*[1-9][0-9]*$　　//匹配正整数 
+3。^((-/d+)|(0+))$　　//匹配非正整数（负整数 + 0） 
+4。^-[0-9]*[1-9][0-9]*$　　//匹配负整数 
+5。^-?/d+$　　　　//匹配整数 
+6。^/d+(/./d+)?$　　//匹配非负浮点数（正浮点数 + 0） 
+7。^(([0-9]+/.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*/.[0-9]+)|([0-9]*[1-9][0-9]*))$　　//匹配正浮点数 
+8。^((-/d+(/./d+)?)|(0+(/.0+)?))$　　//匹配非正浮点数（负浮点数 + 0） 
+9。^(-(([0-9]+/.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*/.[0-9]+)|([0-9]*[1-9][0-9]*)))$　　//匹配负浮点数 
+10。^(-?/d+)(/./d+)?$　　//匹配浮点数 
+11。^[A-Za-z]+$　　//匹配由26个英文字母组成的字符串 
+12。^[A-Z]+$　　//匹配由26个英文字母的大写组成的字符串 
+13。^[a-z]+$　　//匹配由26个英文字母的小写组成的字符串 
+14。^[A-Za-z0-9]+$　　//匹配由数字和26个英文字母组成的字符串 
+15。^/w+$　　//匹配由数字、26个英文字母或者下划线组成的字符串 
+16。^[/w-]+(/.[/w-]+)*@[/w-]+(/.[/w-]+)+$　　　　//匹配email地址 
+17。^[a-zA-z]+://匹配(/w+(-/w+)*)(/.(/w+(-/w+)*))*(/?/S*)?$　　//匹配url 
+18。匹配中文字符的正则表达式： [/u4e00-/u9fa5]
+19。匹配双字节字符(包括汉字在内)：[^/x00-/xff]
+20。应用：计算字符串的长度（一个双字节字符长度计2，ASCII字符计1）
+String.prototype.len=function(){return this.replace([^/x00-/xff]/g,"aa").length;}
+21。匹配空行的正则表达式：/n[/s| ]*/r
+22。匹配HTML标记的正则表达式：/<(.*)>.*<///1>|<(.*) //>/ 
+23。匹配首尾空格的正则表达式：(^/s*)|(/s*$)
+
+* 正则表达式用例
+  * 1、^/S+[a-z A-Z]$ 不能为空 不能有空格  只能是英文字母
+  * 2、/S{6,}         不能为空 六位以上
+  * 3、^/d+$          不能有空格 不能非数字
+  * 4、(.*)(/.jpg|/.bmp)$ 只能是jpg和bmp格式
+  * 5、^/d{4}/-/d{1,2}-/d{1,2}$ 只能是2004-10-22格式
+  * 6、^0$            至少选一项
+  * 7、^0{2,}$        至少选两项
+  * 8、^[/s|/S]{20,}$ 不能为空 二十字以上
+  * 9、^/+?[a-z0-9](([-+.]|[_]+)?[a-z0-9]+)*@([a-z0-9]+(/.|/-))+[a-z]{2,6}$邮件
+  * 10、/w+([-+.]/w+)*@/w+([-.]/w+)*/./w+([-.]/w+)*([,;]/s*/w+([-+.]/w+)*@/w+([-.]/w+)*/./w+([-.]/w+)*)* 输入多个地址用逗号或空格分隔邮件
+  * 11、^(/([0-9]+/))?[0-9]{7,8}$电话号码7位或8位或前面有区号例如（022）87341628
+  * 12、^[a-z A-Z 0-9 _]+@[a-z A-Z 0-9 _]+(/.[a-z A-Z 0-9 _]+)+(/,[a-z A-Z 0-9 _]+@[a-z A-Z 0-9 _]+(/.[a-z A-Z 0-9 _]+)+)*$
+  *     只能是字母、数字、下划线；必须有@和.同时格式要规范 邮件
+  * 13 ^/w+@/w+(/./w+)+(/,/w+@/w+(/./w+)+)*$上面表达式也可以写成这样子，更精练。
+    14   ^/w+((-/w+)|(/./w+))*/@/w+((/.|-)/w+)*/./w+$ 
+
+  
+
+  
+
+  
+
+// 限定条件
+         final String CONDITION = "(?=.*[a-z])(?=.*[A-Z])(?=.*//d)";
+
+        // 允许出现的字符
+         final String SPECIAL_CHAR = "[-A-Za-z0-9!$%&()/;<?{}//[//]^////]";
+
+        // 数量
+         final String QUANTITY = "{8,16}"; 
+
+  
+
+1 楼的回复
+
+(?=.*[a-z]) 表示当前位置后面必须出现 .*[a-z] 的字符，这个可以理解为必须出现小写字母。
+或者可以理解为某一个字符间的缝隙必须满足的条件，这个仅仅作为条件判断并不能匹配任何字
+符，因为这属于非捕获组中的环视（lookarround）零宽度匹配。
+
+举个大家常见的例子：
+
+表达式：Win(?=XP)
+现有字符串 WinXP 和 WinNT，在应用这个表达式时前者能与之进行匹配，为什么呢？
+
+当匹配器指示到 (?=XP) 时，也就是在 n 字母后面的缝隙，这个缝隙必须满足的
+条件是：后面的字符必须是 XP，如果是的话，匹配成功，否则匹配失败。由于
+(?=XP) 是匹配缝隙的，因此并不会把 XP 给匹配输出，而只输出了 Win 因此，这
+个表达式的语义可以看作是：找到后面为“XP”字符所有的 Win。
+
+假如，我们把表达式写成 Win(?=XP)(?=NT) 这样的话，那么这个语义是：找出后面
+为“XP”并且为“NT”字符所有的 Win 可以想象，这是个
+永远无法满足的匹配。(?=XP)(?=NT) 这个表示当前的缝隙必须同时满足的条件。
+
+把这个表达式再改一下，改成 Win(?=.*XP)(?=.*NT) 这个表示 Win 的后面必须出现
+XP 与 NT，位置和顺序都是无关的（这主要是 .* 的作用）。当然了这个表达式的效
+率是比较低的，得向后进行两次断言。
+
+如果字符串是 WincbaXPabcNT 这个字符串，当匹配指示器走到 n 后面的缝隙时开始
+进行向后断言，首先对 .*XP 进行断言，很明显能将 cbaXP 匹配成功，这时第一个断
+言完成，再对 .*NT 断言，可以看出 cbaXPabcNT 能与其匹配成功，这时第二个断言完
+成，因此表达式 Win(?=.*XP)(?=.*NT) 能对 WincbaXPabcNT 进行匹配。
+
+同理 WincbaNTabcXP 也是同样的效果。
+
+如果能理解上面的这些，对于 (?=.*[a-z])(?=.*[A-Z])(?=.*//d) 这个的理应该不会
+很难吧，这个只不过是必须同时满足三个条件。
+
+这个表达式在开始部分就进行断言，即索引为 0 的地方，也就是第一个字符的前面的
+缝隙，这个缝隙后面的字符必须满足 .*[a-z]  .*[A-Z]  .*//d  三个条件，也就是说
+必后面必须出现至少一个小写字母、至少一个大写母、至少一个数字。
+
+
+至于表达式 2 的使用，也就是 [  ] 内字符的转义需要注意一下。
+
+^ 和 - 在 [  ] 结构的表达式中是有一定意义的。
+
+[^abc] 表示除 abc 以外所有的字符，注意，这是放在最前面表示这个意思，
+如果改成 [a^bc] 这个仅表示 a ^ b c 四个字符。如果需要匹配 ^ 这个字符
+的话，千万不要把它放在第一个，如果一定要放在第一个的话，得使用转义符。
+
+- 在 [  ] 表示字符的范围，比如 [a-z] 表示 a 与 z 之间的 26 个字母，
+[a-zA-Z] 这个表示 a-z 和 A-Z 的 52 个字母。使用范围得注意了，如果写成
+[z-a] 的话，在 Pattern.compile 编译表达式时会对范围进行检查，这时会产
+生异常，因此在使用 - 范围时，后面的 Unicode 值必须大于等于前面的 Unicode
+值。
+
+如果要匹配“-”的话，尽量不要把 - 这个放在字符之间，可以放在 [  ] 的两边。
+比如 [-a-z] 这就能匹配 26 个小写字母和“-”了。当然了，我们也可以写成
+[a-z-A-Z] 这个可以匹配 52 字母和“-”，但是这样很不直观，我们宁愿写成
+[a-zA-Z-] 或者 [-a-zA-Z] 这样。 
+
+  
+
+  
+
+2：不以某某开头 ，比如不以www开头
+
+
+Java code 
+public class Test { 
+    public static void main(String[] args) {
+        String[] strs = { "abc1232", "wwwadsf", "awwwfas", "wwadfsf", "", "ww", " ", "www" }; 
+        String regex = "(?:(?!^www).)*"; 
+        for(String str : strs) { 
+
+            System.out.printf("%-7s %s%n", str, str.matches(regex));
+        }
+    }
+} 
+
+
+(?!X) 专业名称为 Negative Lookahead，表示字符间缝隙后面不允许出现的字符，
+即匹配字符间的缝隙，如果缝隙后的字符不是 X 的话，那这个缝隙就匹配成功。
+
+举个例子，aab 和 aac，现有表达式 aa(?!b) 这时我们能匹配到的字符串是 aac，
+因为 aa 的后面的缝隙之后不允许出现字符 b，因此只有 aac 进行了匹配。
+
+再来看个示例： 
+
+Java code 
+
+public class Test {
+    public static void main(String[] args) {
+        String str = "AQuickBrownFoxJumpsOverTheLazyDog";
+        String[] strs = str.split("(?<!^)(?=[A-Z])");
+        for(String s : strs) {
+            System.out.println(s);
+        } 
+    }
+} 
+
+
+根据大写字母拆分字符串。当然了，这个使用字符串进行分析同样也能进行拆分，
+但是使用正则表达式来拆的话更为便捷直观一些。
+
+在进行这种拆分时，由于在拆分后的字符数不能减少，因此只能使用零宽度的
+lookaround 功能进行匹配，lookaround 包括四个，即： 
+
+Java code 
+(?=X) (?!X) (?<=X) (?<!X) 
+
+
+来看一下这个表达式：(? <!^)(?=[A-Z])
+
+前面说到过 (?!) 表示缝隙后面不允许出现的东西，而 (? <!) 表示缝隙前不允许出现的东西。
+(?=) 表示缝隙后允许出现的东西，(? <=) 表示缝隙前允许出现的东西。
+
+这个表达式在拆分时，根据零宽度匹配缝隙进行拆分的，这个缝隙必须满足以下条件：
+
+(? <!^) 表示缝隙不允许前不能是行开始，即缝隙不能出现在首字母的前面。
+(?=[A-Z]) 表示缝隙后面允许出现 A-Z 的大写字母。
+
+这时这个表达式就匹配了下面带有 | 的缝隙： 
+
+Java code 
+A|Quick|Brown|Fox|Jumps|Over|The|Lazy|DogPS：不加 (?<!^) 的话，会变成：|A|Quick|Brown|Fox|Jumps|Over|The|Lazy|Dog 
+
+
+根据 split 的功能，正则表达式处理程序就根据上面的 | 将字符串给拆分开来了。
+
+
+3，不区分大小写
+不加任何限制的匹配是匹配分大小写的，但是正则表达式中可以进行改变，
+有两种方式：参数式和内嵌式。
+
+来看个示例： 
+
+Java code 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+public class Test {
+    public static void main(String[] args) {
+        String str = "Book"; 
+        Pattern pattern = Pattern.compile("book");
+        Matcher matcher = pattern.matcher(str);
+        System.out.println(matcher.matches()); 
+    }
+} 
+
+
+上面的这个表达式 book 是不能匹配字符串 Book 的，这时我们只要给定编译时的参数就可以了：
+
+Pattern pattern = Pattern.compile("book", Pattern.CASE_INSENSITIVE);
+
+Pattern.CASE_INSENSITIVE 这是一个 int 类型的常量，值为 2。表示表达式忽略大小写进行区配。
+
+如果我们不采用 Pattern 和 Matcher 两个类来匹配的话，只是使用 String 的 matches 方法的话，
+我们就不能指定表达式的编译参数了，这时就需要采用内嵌标志表达式了，与 Pattern.CASE_INSENSITIVE
+对应的内嵌标志表达式是 (?i)，它有四种形式：
+1，(?i)
+2，(?-i)
+3，(?i:X)
+4，(?-i:X)
+不带有 - 的是开标志，带有 - 的是关标志。
+
+把上面的代码改成这样： 
+
+Java code 
+public class Test {
+    public static void main(String[] args) {
+        String str = "Book";
+        String regex = "(?i)book"; 
+        System.out.println(str.matches(regex));
+    }
+} 
+
+
+我们就达到了同样的效果，当然这样并不是最好的，因为字符串中只有 B 是大写的，
+我们没有必要把所有的字符都进行不区分大小写匹配，我们可以在打开标志，用 (?i) 的
+第二种形式马上关掉它：
+    String regex = "(?i)b(?-i)ook";
+
+这样的话，只有 b 是区分大小写了，而 (?-i) 后面的还是得区分大小写匹配的。这样写
+可能看上去很不顺眼，我们还能使用第 3 种形式直接指定某些字符是不区分大小写的。
+    String regex = "(?i:b)ook";
+
+这样的表达式与上面的那个在语义上是相同的。就效率上肯定是优于一下子开，一下子关的。
+
+可见内嵌标志表达式要比指定编译参数的功能强大许多。
+
+使用建议：如果能确定某些字符的大小写时，尽量使用已确定的字符，对于不确定的可以采用
+(?i:X) 的方式指定。因此打开不区分大小写开关时，对匹配的性能是有一定影响的。
+
+思考一下：String regex = "(?i)b(?-i:oo)k"; 这个表达式的意思？
+
+
+另外：第 1 和第 4，我没看明白需要了解什么，请在下面的楼层中具体地说明一下。 
+
+  
+
+1：多行匹配
+
+在默认的情况下 . 是不能匹配行结束符的（行结束符有 6 个，具体的可以看看 Pattern 的 API DOC）
+同样，可以像不匹配大小写匹配那样使用编译参数：Pattern.DOTALL
+
+如果还得区分大小写的话，还得加上上面说到的 Pattern.CASE_INSENSITIVE 这个，举个例子： 
+
+Java code 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+public class Test {
+    public static void main(String[] args) {
+        String str = "<table> /n" + " <tr> /n" + " <td> /n" + " Hello World! /n" + " </td> /n" + " </tr> /n" + "</table>";
+        String regex = "<td>(.+?)</td>"; 
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(str);
+        while(matcher.find()) { 
+            System.out.println(matcher.group(1).trim()); 
+        }
+    }
+} 
+
+
+上面这个是不能从 str 抽取出东西的，因为 td 的后面带有换行符，我们只要更改一下：
+
+Pattern pattern = Pattern.compile(regex, Pattern.DOTALL);
+
+这样就行了，如果 td 还得不区分大小写的话，再改成： 
+
+Java code 
+Pattern pattern = Pattern.compile(regex, Pattern.DOTALL | Pattern.CASE_INSENSITIVE); 
+
+
+这样的话，td 哪怕是大写的这个表达式都能把 td 之间的字符区抽取出来。
+
+当然和 Pattern.CASE_INSENSITIVE 一样，Pattern.DOTALL 也有内嵌标志表达式，即 (?s)
+s 的意思表示 single-line 就是忽略换行符什么的，只看成单行进行处理。
+
+这个表达式使用内嵌 (?s) 的话可以改为： 
+
+Java code 
+String regex = "(?s)<td>(.+?)</td>";如果还要不区分大小写的话，再加上 i 标志：String regex = "(?s)(?i)<td>(.+?)</td>";但这样显得很拖沓，可以把它们合并起来：String regex = "(?is)<td>(.+?)</td>"; // 秩序无所谓 
+
+
+最后需要说明一下的是，我曾看到过由于不明白 DOTALL，为了让 . 匹配行结束符，直接把表达式写成： 
+
+Java code 
+String regex = "<td>((.|//s)+?)</td>"; 
+
+
+这样做是极其危险的，由于选择结构的匹配效率问题，这样做在比较长的字符串时会造成堆栈溢出，
+使程序崩溃，如果使用 DOTALL 或者 (?s) 的话就不会出现这种情况。
+
+
+4：2个单元的或操作
+
+| 称为多选结构，用于匹配 | 之中的任何一个，拿你的例子来说明： 
+
+Java code 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+public class Test { 
+    public static void main(String[] args) { 
+        String str = "<img src=/"http://www.google.com/1.gif/"/>/n" + "<img src=/"http://3w.google.com/1.gif/"/>/n" + "<img src=/"http://abc.baidu.com/1.gif/"/>";
+        String regex = "<img//ssrc=/"http://(?:ww|3)w.google.com/1.gif/"/>";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(str); 
+        while(matcher.find()) { 
+            System.out.println(matcher.group()); 
+        } 
+    }
+} 
+
+
+注意到其中的 (?:ww|3) 在进行多选匹配时尽量找出多选中的规律，以减少多选的字符，
+www 和 3w 在最后一个字符可以共用，前面的不一样。
+
+(?: ) 的意思表示组成一组，如果没有 (?: ) 这样的话，表达式就变成了： 
+
+Java code 
+String regex = "<img//ssrc=/"http://ww|3w.google.com/1.gif/"/>"; 
+
+
+这样的语义完全变掉了，| 是在一组中进行选择，由于上面的那个表达式中没有组，就把整个表
+达式作为了一组，使用 | 的话，就进行了整个表达式的多选结构了。这个表达式的意思是：
+匹配 <img ssrc="http://ww 或者是 3w.google.com/1.gif"/>，这样的结果并不是我们所要的。
+
+我们仅仅需要在 ww 和 3 之间进行选择，这时只要把 ww 和 3 放在一组中进行多选择就可以了，
+变成 (?:ww|3)。
+
+还有，在多选结构中尽量把出现频率高的放在前面，这样可以加快匹配速度。
+
+多选结构的效率在传统型的引擎中是效率低下的，如果是单个字符的选择，比如 a $ & 之中的一个，
+那就不要使用 (?:a|$|&) 了，可以直接使用字符类 [a$&] 就可以了。
+
+说了那么多，不知道是否明白了？ 

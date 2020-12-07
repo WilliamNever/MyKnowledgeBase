@@ -1,0 +1,6 @@
+﻿{
+  "ConnetionString": {
+    "name": "DBContext",
+    "value": "AttachDbFilename=D:\\ProjectsTest\\App_Data\\DBCTXTNCore.mdf;Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=DBCTXTNCore;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;user id=sa;password=sa"
+  }
+}

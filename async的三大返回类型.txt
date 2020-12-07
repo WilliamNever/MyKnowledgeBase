@@ -1,0 +1,165 @@
+﻿async 的三大返回类型
+序
+
+　　博主简单数了下自己发布过的异步文章，已经断断续续 8 篇了，这次我想以 async 的返回类型为例，单独谈谈。
+
+　　异步方法具有三个可让开发人员选择的返回类型：Task<TResult>、Task 和 void。 
+
+　　什么时候需要使用哪一种返回类型，具体情况需要具体分析。如果使用不当，程序的执行结果也许并不是你想要的，下面我们就来好好谈谈如何针对不同的情况选择不同的返回类型。
+
+ 
+目录
+
+    返回类型 - Task<TResult> 
+    返回类型 - Task
+    返回类型 - void
+    小结
+
+ 
+一、返回类型 - Task<TResult> 
+
+　　【记住】当你添加 async 关键字后，需要返回一个将用于后续操作的对象，请使用 Task<TResult>。
+
+ 
+
+ 　  Task<TResult> 返回类型可用于 async 方法，其中包含指定类型 TResult。
+
+　　在下面的示例中，GetDateTimeAsync 异步方法包含一个返回当前时间的 return 语句。 因此，方法声明必须指定 Task<DateTime>。
+
+        async Task<DateTime> GetDateTimeAsync()
+        {
+            //Task.FromResult 是一个占位符，类型为 DateTime
+            return await Task.FromResult(DateTime.Now);
+        }
+
+　　
+
+　　调用 GetDateTimeAsync 方法：
+
+        async Task CallAsync()
+        {
+            //在另一个异步方法的调用方式
+            DateTime now = await GetDateTimeAsync();
+        }
+
+　　当 GetDateTimeAsync 从 await 表达式中调用时，await 表达式将检索存储在由 GetDateTimeAsync 返回的 task 中的 DateTime 类型值。 
+
+ 
+复制代码
+
+        async Task CallAsync()
+        {
+            //在另一个异步方法的调用方式
+            //DateTime now = await GetDateTimeAsync();
+
+            //换种方式调用
+            Task<DateTime> t = GetDateTimeAsync();
+            DateTime now = await t;
+        }
+
+复制代码
+
+　　通过 CallAsync 方法对 GetDateTimeAsync 方法的调用，对非立即等待的方法 GetDateTimeAsync 的调用返回 Task<DateTime>。 该任务指派给示例中的 DateTime 的 Task 变量。 因为 DateTime 的 Task 变量是 Task<DateTime>，也就是说这里的 TResult 就是 DateTime 类型。 在这种情况下，TResult 表示日期类型。 当 await 应用于 Task<DateTime>，await 表达式的计算结果为 Task<DateTime> 的 DateTime 类型的内容。同时，该值会分配给 now 变量。
+
+ 
+
+　　这次我演示不同的变量，你可以自己对比下结果是否相同：
+复制代码
+
+        async Task CallAsync()
+        {
+            //在另一个异步方法的调用方式
+            DateTime now = await GetDateTimeAsync();
+
+            //换种方式调用
+            Task<DateTime> t = GetDateTimeAsync();
+            DateTime now2 = await t;
+ 　　　　　　 
+　　　　　　　//输出的结果对比
+            Console.WriteLine($"now: {now}");
+            Console.WriteLine($"now2: {now2}");
+            Console.WriteLine($"t.Result: {t.Result}");
+        }
+
+复制代码
+
+　　
+
+　　我这边可以给出的答案就是：结果是一样的。
+
+　　【注意】主要有两种方式获取结果值，一个是使用 Result 属性，一个是使用 await。他们的区别在于：如果你使用的是 Result，它带有阻塞性。即在任务完成之前进行访问读取它，当前处于活动状态的线程都会出现阻塞的情形，一直到结果值可用。所以，在绝大多数情况下，除非你有绝对的理由告诉自己，否则都应该使用 await，而不是属性 Result 来读取结果值。
+
+ 
+二、返回类型 - Task
+
+　　【记住】你如果只是想知道执行的状态，而不需要一个具体的返回结果时，请使用 Task。
+
+ 
+
+　　一个返回类型为 Task 类型的异步方法，它的具体实现不应该包含 return 语句，或者说是一个 return void 的语句。这个 Task 类型是不包含属性 Result 的。跟 Task<TResult> 调用一样，调用方法直接使用 await 挂起并等待异步方法的执行完毕。
+
+ 
+
+　　请看示例：
+复制代码
+
+        async Task DelayAsync()
+        {
+            //Task.Delay 是一个占位符，用于假设方法正处于工作状态。
+            await Task.Delay(100);
+
+            Console.WriteLine("OK!");
+        }
+
+复制代码
+
+　　
+
+　　通过使用 await 语句而不是 await 表达式来调用和等待 DelayAsync 方法，类似于返回 void 的方法的调用语句。 await 运算符的应用程序在这种情况下不生成值。
+
+　　请看调用 DelayAsync 的示例。
+
+            //调用和等待方法在同一声明中
+            await DelayAsync();
+
+ 
+
+　　现在，我用将调用和等待的方法进行分离：
+
+            //分离
+            Task delayTask = DelayAsync();
+
+            await delayTask;        
+
+ 
+三、返回类型 - void
+
+　　【记住】如果在触发后，你懒得管，请使用 void。如事件处理程序（主要用途）。
+
+ 
+
+　　void 返回类型主要用在事件处理程序中，一种称为“fire and forget”（触发并忘记）的活动的方法。除了它之外，我们都应该尽可能是用 Task，作为我们异步方法的返回值。
+
+　　返回 void，意味着不能 await 该异步方法，即可能出现线程阻塞，并且也无法获取 exception，抛出的异常，通常这些异常会导致我们的程序失败，如果你使用的是 Task 和 Task<Result>，catch 到的异常会包装在属性里面，调用方法就可以从中获取异常信息，并选择正确的处理方式。
+
+　　现在，异常也可以使用 await 了，请移步到这里 《回眸 C# 的前世今生 - 见证 C# 6.0 的新语法特性》。
+
+ 
+
+　　void 返回值示例：
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            //启动进程并等待完成
+            await Task.Delay(100);
+        }
+
+ 
+小结
+
+    当你添加 async 关键字后，需要返回一个将用于后续操作的对象，请使用 Task<TResult>；
+
+    你如果只是想知道执行的状态，而不需要知道具体的返回结果时，请使用 Task；
+
+    如果在触发后，你懒得管，请使用 void。
+    请尽量优先使用 Task<TResult> 和 Task 作为异步方法的返回类型。

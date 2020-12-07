@@ -1,0 +1,25 @@
+﻿@model string
+
+@{
+    ViewData["Title"] = "CVMT";
+}
+
+<h2>CVMT</h2>
+
+<h4>VMComplicatedViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+            <div class="body-param" data-param-name="cvm" data-param-in="body">
+                @Html.TextArea("JsonModel",Model,new { style = "width: 850px; height: 275px; resize: none" })
+            </div>
+    </div>
+</div>
+
+<div class="text-primary" style="font-weight: bold;">
+    Please Post the upper json to /InputTEST/CVMT to see the result.
+    The example is in Documents\PostMan folder.
+</div>
+
+@section Scripts {
+}

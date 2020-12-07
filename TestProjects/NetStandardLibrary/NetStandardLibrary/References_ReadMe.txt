@@ -1,0 +1,1 @@
+﻿.Net Standard 2.0 can be only referenced by .net fx4.6.1 and upper.

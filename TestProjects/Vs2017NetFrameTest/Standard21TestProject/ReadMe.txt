@@ -1,0 +1,1 @@
+﻿This project is base Standard 2.1 for .net core 3.1.

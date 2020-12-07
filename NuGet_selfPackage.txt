@@ -1,0 +1,14 @@
+https://www.nuget.org/
+to download a nuget.exe
+
+source code set:
+https://github.com/nuget/home
+
+nuget pack AppendNugetTest.csproj
+
+
+rem nuget delete BOSDB2Adapter 1.2.3 -Source http://127.0.0.1:9898/nuget -apikey nltc558 [-NonInteractive]
+rem nuget push BOSDB2Adapter.1.2.3.nupkg -Source http://127.0.0.1:9898/nuget -apikey nltc558
+rem nuget push *.nupkg -Source http://127.0.0.1:9898/nuget -apikey nltc558
+rem nuget locals all -clear
+rem nuget locals all -list

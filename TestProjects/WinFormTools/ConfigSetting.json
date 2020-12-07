@@ -1,0 +1,28 @@
+{
+  "Configurations": {
+    "DBConfigs": {
+      "Executions": [
+        {
+          "Name": "Local Test 1",
+          "ConnectionString": "AttachDbFilename=D:\\ProjectsTest\\App_Data\\DBCTXTNCore.mdf;Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=DBCTXTNCore;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;user id=sa;password=sa",
+          "Commands": [
+            {
+              "Name": "Select command",
+              "Command": "select * from [UserInfors]"
+            }
+          ]
+        },
+        {
+          "Name": "Local Test 2",
+          "ConnectionString": "AttachDbFilename=D:\\ProjectsTest\\App_Data\\DBCTXTNCore.mdf;Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=DBCTXTNCore;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;user id=sa;password=sa",
+          "Commands": [
+            {
+              "Name": "Select command",
+              "Command": "select top 2 * from [UserInfors]"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

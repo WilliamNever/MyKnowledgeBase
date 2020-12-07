@@ -1,0 +1,24 @@
+﻿@model Log4NetRecordLog.ViewModels.PageViewModel
+@{
+    ViewBag.Title = "ShowListPost";
+}
+
+<h2>ShowListPost</h2>
+<div class="row">
+    <div style="float:left">@Html.ActionLink("ListBindTest", "ShowList", "ListBindTest")</div>
+</div>
+
+<div class="row">
+    <div>
+        @foreach (var itm in Model.CheckValueList)
+        {
+            <div class="form-inline">
+                @itm.ItemName / @itm.IsChecked / @itm.Value
+            </div>
+        }
+        <br/>
+        <div class="form-inline">
+            @Model.OpString
+        </div>
+    </div>
+</div>

@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewBag.Title = "ListInfors";
+}
+
+@section scripts
+{
+    <script src="~/Scripts/jquery.jqGrid.min.js"></script>
+    <script src="~/Scripts/i18n/grid.locale-en.js"></script>
+    <link href="~/Content/jquery.jqGrid/ui.jqgrid.css" rel="stylesheet" />
+    <link href="~/Content/jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        var paraObj = {};
+        function LoadFromServer()
+        {
+                var mygrid = $("#list").jqGrid({
+                    url: '@Url.Action("GetInfors", "Home")',
+                    datatype: 'json',
+                    mtype: 'post',
+                    colNames: ['ID', 'UserName', 'FirstName', 'LastName', 'Age'],
+                    colModel: [
+                            { name: 'ID', index: 'ID', width: '10%', align: 'Center', sortable: true },
+                            { name: 'UserName', index: 'UserName', width: '20%', align: 'Center', sortable: true },
+                            { name: 'FirstName', index: 'FirstName', width: '25%', align: 'Center', sortable: true, editable: true },
+                            { name: 'LastName', index: 'LastName', width: '25%', align: 'Center', sortable: true, editable: true },
+                            { name: 'Age', index: 'Age', width: '20%', align: 'Center', sortable: true, editable: true }
+                    ],
+                    pager: $('#pager'),
+                    rowNum: 20,
+                    rowList: [20, 50, 75, 100],
+                    sortname: 'ID',
+                    sortorder: "asc",
+                    viewrecords: true,
+                    imgpath: '/Content/jquery-ui-1.12.1.custom/images',
+                    width: '1000',
+                    height: 300 
+                    , onSelectRow: function (id, status, e) {
+                        paraObj.rowid = id;
+                        paraObj.status = status;
+                        paraObj.e = e;
+                    }
+                    //, jsonReader: {
+                    //    root: "rows",
+                    //    page: "page",
+                    //    total: "total",
+                    //    records: "records",
+                    //    repeatitems: false,
+                    //    cell: "cell",
+                    //    id: "id"
+                    //}
+                    //, loadtext: "Loading..."
+                });
+
+                $("#list").jqGrid('navGrid', '#pager', { edit: false, add: false, del: false, search: false, refresh: false });
+
+                //var BoxesOn = $("#SearchBox").val();
+
+                jQuery("#list").jqGrid('navButtonAdd', "#pager", {
+                    caption: "Search", title: "Toggle Search Toolbar", buttonicon: 'ui-icon-Search-s',
+                    onClickButton: function () {
+
+                        mygrid[0].toggleToolbar()
+                        //$.post("po/SearchBox");
+
+                    }
+                });
+                jQuery("#list").jqGrid('navButtonAdd', "#pager", {
+                    caption: "Clear", title: "Clear Search", buttonicon: 'ui-icon-refresh',
+                    onClickButton: function () {
+                        mygrid[0].clearToolbar()
+                    }
+                });
+
+
+                jQuery("#list").jqGrid('filterToolbar');
+
+
+                ////alert(BoxesOn);
+                //if (BoxesOn == "False")
+                //    mygrid[0].toggleToolbar();
+
+
+
+                //$("#list").jqGrid('navButtonAdd', "#pager", {
+                //    caption: "Search",
+                //    title: "Toggle Search Toolbar",
+                //    buttonicon: 'ui-icon-pin-s',
+                //    onClickButton: function() { mygrid[0].toggleToolbar() }
+                //});
+
+                //$("#list").jqGrid('navButtonAdd', "#pager", {
+                //    caption: "Clear",
+                //    title: "Clear Search",
+                //    buttonicon: 'ui-icon-refresh',
+                //    onClickButton: function() { mygrid[0].clearToolbar() }
+                //});
+        }
+    </script>
+}
+<h2>ListInfors</h2>
+<input type="button" value="LoadList" onclick="LoadFromServer()" />
+<div id="pager" class="scroll" style="text-align:center;"></div>
+<table id="list" class="scroll" cellpadding="0" cellspacing="0" style="width: 100%; height:100%;"></table>
+<div id="filter" style="display:none">Search Invoices</div>

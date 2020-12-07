@@ -1,0 +1,12 @@
+As well known, the return content type of the webapi is based on the requesting device. How to return a confirmed type in different devices? We can get the expected result by setting the requesting head part.
+
+for example:
+
+var Client = new System.Net.Http.HttpClient();
+Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/json"));	// to set returned content type is json.
+Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/xml"));	// to set returned content type is xml.
+
+
+for .net framework4.0 to use Tls1.2
+
+ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;// SecurityProtocolType.Tls1.2;

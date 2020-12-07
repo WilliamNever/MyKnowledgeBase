@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DBCTxt" EntityNamespace="LDB" ContextNamespace="LDB" Class="LDBContextDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=DBCTxt;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True" SettingsObjectName="LinqToSqlLib.Properties.Settings" SettingsPropertyName="DBCTxtConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Addresses" Member="Addresses">
+    <Type Name="Address">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="addr" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="phone" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="AddIdentity" AutoSync="Never" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="UserInfor_Address" Member="UserInfor" ThisKey="UserID" OtherKey="id" Type="UserInfor" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UserInfors" Member="UserInfors">
+    <Type Name="UserInfor">
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(32) NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LoginDate" AutoSync="Never" Type="System.DateTime" DbType="DateTime NOT NULL" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="UserInfor_Address" Member="Addresses" ThisKey="id" OtherKey="UserID" Type="Address" />
+    </Type>
+  </Table>
+</Database>

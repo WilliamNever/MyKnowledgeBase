@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <script type="text/javascript">
+        function GoValid()
+        {
+            var rgp = document.getElementById("txtRegPattern").value;
+            var flg = document.getElementById("txtFlags").value;
+            var testStr = document.getElementById("txtTestString").value;
+            WriteResult("......",true);
+            var rgx = new RegExp(rgp, flg);
+            if (rgx.test(testStr))
+            {
+                WriteResult("符合正则的要求",true);
+            }
+            else
+            {
+                WriteResult("正则验证未通过",false);
+            }
+        }
+        function WriteResult(str,IsPassed)
+        {
+            var div = document.getElementById("testResult");
+            div.innerHTML = str;;
+            if (IsPassed)
+            {
+                div.style.color = "green";
+            }
+            else
+            {
+                div.style.color = "red";
+            }
+        }
+    </script>
+    <style type="text/css">
+        div {
+            padding:10px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div><span>正则表达式：</span><span><input type="text" id="txtRegPattern" /></span></div>
+        <div><span>参数：【如：i g ...】</span><span><input type="text" id="txtFlags" /></span></div>
+        <div><span>要难证的字符串：</span><span><input type="text" id="txtTestString" /></span></div>
+        <div><input type="button" value="验证" onclick="GoValid();" /></div>
+        <div>
+            <div style="padding:10px 0;">结果：</div>
+            <div id="testResult"></div>
+        </div>
+    </div>
+</body>
+</html>

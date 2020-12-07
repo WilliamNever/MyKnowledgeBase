@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "HostTest": {
+      "commandName": "Project",
+      "commandLineArgs": "-cfile CFILE -pfile PFILE -cust CUSTOMER"
+    }
+  }
+}

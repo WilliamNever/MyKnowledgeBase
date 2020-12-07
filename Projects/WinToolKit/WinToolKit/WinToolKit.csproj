@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2745F5BE-AD2A-4E97-A3FB-F3C4A3BB527B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WinToolKit</RootNamespace>
+    <AssemblyName>WinToolKit</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>MiningModel.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Base64DeEncoders">
+      <HintPath>..\ForMyTestBase64Read_V7.1\Base64DeEncoders.dll</HintPath>
+    </Reference>
+    <Reference Include="ForMyTestBase64Read">
+      <HintPath>..\ForMyTestBase64Read_V7.1\ForMyTestBase64Read.exe</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ClassBase\BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClassBase\BaseForm.Designer.cs">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClassBase\BaseMenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClassBase\BaseMenuForm.Designer.cs">
+      <DependentUpon>BaseMenuForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClassCodes\FormTemplate.cs" />
+    <Compile Include="ClassCodes\Models\DataGridViewBindModel.cs" />
+    <Compile Include="ClassCodes\Models\WindowsListFuncClass.cs" />
+    <Compile Include="ClassCodes\Models\WindowToolStripMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ExtendedForms\Base64DeEncodersExt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExtendedForms\Base64DeEncodersExt.Designer.cs">
+      <DependentUpon>Base64DeEncodersExt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FuncForms\AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FuncForms\AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FuncForms\WindowsList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FuncForms\WindowsList.Designer.cs">
+      <DependentUpon>WindowsList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ClassBase\BaseForm.resx">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClassBase\BaseMenuForm.resx">
+      <DependentUpon>BaseMenuForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FuncForms\AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FuncForms\WindowsList.resx">
+      <DependentUpon>WindowsList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="MiningModel.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonClasses\CommonClasses.csproj">
+      <Project>{7743AA6D-73E4-4E69-AA0D-B9C680F704D1}</Project>
+      <Name>CommonClasses</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReadTargetInfor\ReadTargetInfor.csproj">
+      <Project>{79E73CA6-67DA-45BA-9E3B-CE4FD2C89F4E}</Project>
+      <Name>ReadTargetInfor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReflectClass\ReflectClass.csproj">
+      <Project>{2F2786B7-EA0B-4128-9CB8-68F0670DFB3E}</Project>
+      <Name>ReflectClass</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

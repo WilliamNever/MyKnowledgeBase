@@ -1,0 +1,48 @@
+using Darkseid.Data.Foundation.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace Darkseid.Data.Foundation.EntityTypeConfigurations
+{
+    public class AAATableEntityTypeConfiguration : IEntityTypeConfiguration<AAATable>
+    {
+        public void Configure(EntityTypeBuilder<AAATable> builder)
+        {
+            builder.HasKey(_ => _.AAATableId);
+            builder.HasOne<BBBTable>(_ => _.BBBTable).WithOne(_ => _.AAATable).HasForeignKey<BBBTable>(_ => _.AAATableId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Property(_ => _.Name).IsRequired().HasMaxLength(255);
+        }
+    }
+}
+
+
+    public class FoundationContext : DbContext
+    {
+        protected string ConnectionString;
+        public FoundationContext()
+        {
+        }
+        public FoundationContext(string connectionString)
+        {
+            ConnectionString = connectionString;
+        }
+        public  FoundationContext(DbContextOptions<FoundationContext> options) : base(options) { }
+
+        public virtual DbSet<BBBTable> BBBTables { get; set; }
+
+        public virtual DbSet<AAATable> AAATables { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.ApplyConfiguration(new AAATableEntityTypeConfiguration());
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(ConnectionString);
+            }
+        }
+    }

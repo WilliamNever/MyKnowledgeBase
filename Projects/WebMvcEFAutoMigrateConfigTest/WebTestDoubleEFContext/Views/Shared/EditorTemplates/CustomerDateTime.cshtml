@@ -1,0 +1,14 @@
+﻿@model System.DateTime?
+
+
+@if (Model.HasValue)
+{
+    @Html.TextBox("", Model.Value.ToShortDateString(), new { @class = "form-control" })
+    @Html.TextBox("", Model.Value.ToShortTimeString(), new { @class = "form-control" })
+}
+else
+{
+    @Html.TextBoxFor(x => x, new { @class = "form-control" })
+}
+
+@*@{Model = DateTime.Now}*@

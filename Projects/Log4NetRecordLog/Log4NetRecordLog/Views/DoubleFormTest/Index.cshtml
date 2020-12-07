@@ -1,0 +1,36 @@
+﻿@model Log4NetRecordLog.ViewModels.CheckValueClass
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+    @Html.DisplayForModel()
+</div>
+@{ 
+}
+<div>
+    <div>GetSubmit1</div>
+    @using (Html.BeginForm("GetSubmit1", "DoubleFormTest", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div>@Html.TextBoxFor(m=>m.ItemName)</div>
+        <div>@Html.CheckBox("IsChecked")</div>
+        <div>@Html.TextBox("Value")</div>
+        <div><button type="submit">Click</button></div>
+    }
+</div>
+<div>
+    <div>GetSubmit2</div>
+    @using (Html.BeginForm("GetSubmit2", "DoubleFormTest", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div><input type="text" name="ItemName" /></div>
+        <div><input type="checkbox" name="IsChecked" value="true" /></div>
+        <div><input type="text" name="Value" /></div>
+        <div><button type="submit">Click</button></div>
+    }
+</div>
+

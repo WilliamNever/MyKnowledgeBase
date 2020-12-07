@@ -1,0 +1,12 @@
+startup.cs
+
+services.AddDataAnnotations();
+
+services.Configure<ApiBehaviorOptions>(options =>{
+                options.SuppressModelStateInvalidFilter = true;});
+
+
+
+Controller.cs
+
+[ApiController]

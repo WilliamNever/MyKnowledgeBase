@@ -1,0 +1,229 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@section HeaderScripts
+{
+    <script type="text/javascript">
+        var outterScope = { VScope: null, lScope: null, lsLocation: null, HttpTestScope: null };
+        var tmp;
+
+        var AltMsg = function (x) {
+            alert(x);
+        };
+
+        app.value('almsg', AltMsg);
+
+        app.factory('fcty', function () {
+            //这里是个构造函数
+            //var func = {
+            //    altMsg:AltMsg
+            //}
+
+            var func = {};
+            func.altMsg = AltMsg;
+            return func;
+        });
+        app.service('altService', function (fcty) {
+            this.Show = function (x) { fcty.altMsg(x); }
+        });
+
+        app.controller('myCtrller', function ($scope) {
+            $scope.fStr = "Hello";
+            $scope.bStr = "William";
+            outterScope.VScope = $scope;
+        });
+        
+        app.controller('myDataCtrller', function ($scope, $location, altService, almsg) {
+            $scope.names = [{ "age": 20, "id": 10, "name": "iphone" },
+                            { "age": 12, "id": 11, "name": "sunm xing" },
+                            { "age": 44, "id": 12, "name": "test abc" }
+                            , { "age": 44, "id": 13, "name": "中国" }
+                            , { "age": 45, "id": 14, "name": "日本" }
+                            , { "age": 30, "id": 15, "name": "中东" }
+            ];
+            $scope.result = "";
+            $scope.test = "";
+            $scope.ClearFilter = function () { $scope.test = ""; $scope.result = ""; };
+            $scope.InputKeyUp = function () {
+                $scope.result = $scope.test;
+            };
+            $scope.ShowCurrentLine = function (obj) {
+                $scope.result = obj.x.name;
+                almsg('Value Injection:' + obj.x.name);
+                altService.Show('Factory Injection:' + $scope.result);
+            };
+
+            outterScope.lScope = $scope;
+            outterScope.lsLocation = $location;
+        });
+        app.filter('reverse', function () { //可以注入依赖
+            return function(text) {
+                return text.split("").reverse().join("");
+            }
+        });
+
+        app.controller("myHttpTest", function ($scope, $http) {
+            $scope.Search = function () {
+                $http({
+                    method: "post",
+                    url: '@Url.Action("GetInfors", "Home")'
+                    , data: { searcher: {id:110,username:'aab'} }
+                    , headers: {'mydefinedHeader':'HelloWorld!'}
+                }).then(
+                function sccCBack(response) {
+                    $scope.data = response.data;
+                    $scope.CallBackStatus = response.status + '/' + response.statusText;
+                    $scope.HeaderInfor = response.headers('ReturnHeader');
+                }
+                , function errCBack(response) {
+                    $scope.CallBackStatus = response.status + '/' + response.statusText;
+                    $scope.HeaderInfor = response.headers('ReturnHeader');
+                }
+                );
+            };
+
+            $scope.GetAgeIllr = function (age) {
+                return (age > 100) ? 'Error Age' : age;
+            };
+
+            $scope.GetIsTrueAge = function (age) {
+                return age <= 100;
+            };
+            $scope.chkValue = true;
+            $scope.IsShowOrNot = true;
+            $scope.ChangeTF = function () {
+                $scope.IsShowOrNot = !$scope.IsShowOrNot;
+            };
+
+            $scope.Search();    //run the search when the page loaded
+
+            outterScope.HttpTestScope = $scope;
+        });
+    </script>
+}
+
+<div data-ng-controller="myHttpTest">
+    <form name="myForm">
+        <div class="row">
+            <div class="col-sm-3"><input type="button" value="Search" data-ng-click="Search();" /></div>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-3">{{CallBackStatus}}//{{HeaderInfor}}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>No.</td>
+                            <td>ID</td>
+                            <td>UserName</td>
+                            <td>FirstName</td>
+                            <td>LastName</td>
+                            <td>Age</td>
+                            <td>Age Status</td>
+                            <td>1</td>
+                            <td>2</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="x in data">
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{x.ID}}</td>
+                            <td>{{x.UserName}}</td>
+                            <td>{{x.FirstName}}</td>
+                            <td>{{x.LastName}}</td>
+                            <td>{{x.Age}}</td>
+                            <td>{{(x.Age>100)?'Error Age':x.Age}}</td>
+                            <td>{{GetAgeIllr(x.Age)}}</td>
+                            <td data-ng-if="GetIsTrueAge(x.Age)">X{{x.Age}}</td>
+                            <td data-ng-if="!GetIsTrueAge(x.Age)">X{{'Error Age'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row"><a href="javascript:void(0);" data-ng-model="VLink">axccbcc</a></div>
+        <div class="row"><input id="cbkaaa" type="checkbox" data-ng-model="chkValue" value="aaa" />{{chkValue}}</div>
+        <div class="row">
+            <div class="col-sm-3"><input type="button" data-ng-click="ChangeTF();" value="ShowOrNot" /></div>
+            <div class="col-sm-3" data-ng-show="IsShowOrNot">
+                <input type="date" name="NMonth" data-ng-model="NMonth" required />
+                <div style="color:red" data-ng-show="myForm.NMonth.$dirty && myForm.NMonth.$invalid">
+                    <span data-ng-show="myForm.NMonth.$error.required">年月是必填</span>
+                    <span data-ng-show="myForm.NMonth.$error.date">非法的字符。</span>
+                </div>
+            </div>
+            <div class="col-sm-3" data-ng-show="IsShowOrNot">
+                <input type="email" name="email" data-ng-model="email" required>
+                <div style="color:red" data-ng-show="myForm.email.$dirty && myForm.email.$invalid">
+                    <span data-ng-show="myForm.email.$error.required">邮箱是必须的。</span>
+                    <span data-ng-show="myForm.email.$error.email">非法的邮箱。</span>
+                </div>
+            </div>
+            <div class="col-sm-3" data-ng-if="IsShowOrNot">
+                <input type="text" name="txtName" data-ng-model="txtName" required />
+                <div style="color:red" data-ng-show="myForm.txtName.$dirty && myForm.txtName.$invalid">
+                    <span data-ng-show="myForm.txtName.$error.required">用户名是必须的。</span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="jumbotron">
+    <h1>ASP.NET</h1>
+    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Web Hosting</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+</div>
+<div class="row" data-ng-controller="myCtrller">
+    <div class="col-md-4">
+        <input type="text" data-ng-model="fStr" />
+        <input type="text" data-ng-model="bStr" />
+    </div>
+    <div class="col-md-8">{{fStr + " " + bStr}}</div>
+</div>
+<div data-ng-controller="myDataCtrller" style="min-height:300px">
+    <div> data-ng-keyup="InputKeyUp()" result 
+        <input type="text" data-ng-model="test"/><input type="button" value="Reset" data-ng-click="ClearFilter()" />
+        <span>{{test|reverse}}</span>
+    </div>
+    <div class="col-md-3" style="border:1px solid #eee; padding:5px;margin-top:5px;">
+        <ul>
+            <li data-ng-repeat="x in names | filter:{'name':test} | orderBy:'age':true" data-ng-click="ShowCurrentLine(this)" style="cursor:pointer">
+                <span data-ng-bind="x.name"></span> / <span data-ng-bind="x.age"></span> / <span data-ng-bind="x.id"></span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script type="text/javascript">
+
+    </script>
+}

@@ -1,0 +1,79 @@
+{
+	"info": {
+		"_postman_id": "d41e1e74-d88e-4080-9b79-405bf894d2a2",
+		"name": "ForTestProjects",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Vs2017NetFrameTest",
+			"item": [
+				{
+					"name": "LoginAuthenticationTest",
+					"item": [
+						{
+							"name": "InputTESTController",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"Name\":\"aaaaaaaa\",\"Age\":0,\"UserAge\":0,\"VM\":{\"Name\":\"aaaaaaaabbb\",\"Age\":0,\"UserAge\":0},\"ListViewModel\":[{\"Name\":\"\",\"Age\":10,\"UserAge\":10}]}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{TESTEDUrl}}/InputTEST/CVMT",
+									"host": [
+										"{{TESTEDUrl}}"
+									],
+									"path": [
+										"InputTEST",
+										"CVMT"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "71bbe85e-17f8-45d0-9e54-c55e8b0cf5cd",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e9c38b29-8fa0-4e9a-a281-0345e597ba76",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
