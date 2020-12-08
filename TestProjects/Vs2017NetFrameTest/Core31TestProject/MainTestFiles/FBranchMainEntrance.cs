@@ -24,11 +24,49 @@ namespace Core31TestProject.MainTestFiles
             //DocumentFormat_OpenXmlTest();
             //Console.WriteLine(GetExcelCol(52));
             //FilePathTest();
-            Task.WaitAll(FtpServiceTEST());
+            //Task.WaitAll(FtpServiceTEST());
+            //Task.WaitAll(SftpSingleFileServiceTest()); 
+            //Task.WaitAll(Sftp_MultipleTasksDownFilesTest());
+            Task.WaitAll();
             #endregion
 
             //GZFileExtractTest();
 
+        }
+
+        private async Task Sftp_MultipleTasksDownFilesTest()
+        {
+            SFTPService sftp = new SFTPService();
+            FTPSettings ftpSettings = new FTPSettings { Server=new FTPServer() };
+            ftpSettings.OutPutPath = @"D:\Temp\FTPOutputFiles\";
+            ftpSettings.RootPath = "XXXXXXXX";
+            ftpSettings.SemaphoreSlimInit = 3;
+            ftpSettings.SemaphoreSlimMax = 5;
+            ftpSettings.Server.Host = "XXXXXXXX";
+            ftpSettings.Server.Port = 22;
+            ftpSettings.Server.UserId = "XXXXXXXX";
+            ftpSettings.Server.Password = "XXXXXXXX";
+            var list = await sftp.DownLoadAsync(ftpSettings);
+        }
+
+        private async Task SftpSingleFileServiceTest()
+        {
+            TransferSetting setting = new TransferSetting();
+            setting.Host = "XXXXXXXX";
+            setting.Protocol = "sftp";
+            setting.Port = 22;
+            setting.User = "XXXXXXXX";
+            setting.Password = "XXXXXXXX";
+            setting.RemotePath = "XXXXXXXX";
+            setting.LocalPath = @"D:\Temp\FTPOutputFiles\";
+
+            SftpSingleFileService sftp = new SftpSingleFileService(setting);
+            var flist = (await sftp.GetFilesAsync()).ToList();
+            var localPath = await sftp.DownloadFileAsync(flist[0]);
+            //await sftp.DeleteFileAsync(flist[0]);
+
+            //var flocal = @"D:\Temp\FTPOutputFiles\105454.TXT.gz";
+            //await sftp.UploadFileAsync(flocal);
         }
 
         private async Task FtpServiceTEST()
@@ -43,8 +81,8 @@ namespace Core31TestProject.MainTestFiles
                 {
                     Host = "ftp://localhost",
                     Port = 21,
-                    UserId = @"******",
-                    Password = "******"
+                    UserId = @"XXXXXXXX",
+                    Password = "XXXXXXXX"
                 }
             };
             FTPService ftp = new FTPService();
