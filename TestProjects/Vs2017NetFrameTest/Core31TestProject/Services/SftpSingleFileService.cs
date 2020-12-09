@@ -87,6 +87,10 @@ namespace Core31TestProject.Services
                     using (var sftp = new SftpClient(connInfoSource))
                     {
                         sftp.Connect();
+                        if (!sftp.Exists(_setting.RemotePath))
+                        {
+                            sftp.CreateDirectory(_setting.RemotePath);
+                        }
                         using (FileStream wrt = new FileStream(filepath, FileMode.Open, FileAccess.Read, FileShare.Read))
                         {
                             sftp.UploadFile(wrt, $"{_setting.RemotePath}/{Path.GetFileName(filepath)}", true);
