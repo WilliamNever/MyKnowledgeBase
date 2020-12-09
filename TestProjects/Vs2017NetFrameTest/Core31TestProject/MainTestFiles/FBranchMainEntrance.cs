@@ -92,7 +92,7 @@ namespace Core31TestProject.MainTestFiles
 
         private void GZFileExtractTest()
         {
-            string srcGzFile = @"D:\Temp\OFP\TAYLOR_I2_TRIGGER_SVC_EEOBEM1POP_US_20201125_105454.TXT.gz";
+            string srcGzFile = @"D:\Temp\OFP\20201125_105454.TXT.gz";
             string destFolder = @"D:\Temp\OFP\Extracts";
             Decompress(new FileInfo(srcGzFile), destFolder);
         }
@@ -116,7 +116,7 @@ namespace Core31TestProject.MainTestFiles
 
         private void FilePathTest()
         {
-            string exlPath = @"D:\Temp\CNO_ItemDataExport20201009.xlsx.csvx";
+            string exlPath = @"D:\Temp\20201009.xlsx.csvx";
             var fn = Path.GetFileName(exlPath);
             var fnf = Path.GetFileNameWithoutExtension(exlPath);
             var pth = Path.GetDirectoryName(exlPath);
@@ -149,7 +149,7 @@ namespace Core31TestProject.MainTestFiles
 
         private void DocumentFormat_OpenXmlTest()
         {
-            var filePath = @"D:\Temp\CNO_ItemDataExport20201009.xlsx";
+            var filePath = @"D:\Temp\20201009.xlsx";
             using (SpreadsheetDocument doc = SpreadsheetDocument.Open(filePath, true))
             {
                 WorkbookPart wbPart = doc.WorkbookPart;

@@ -9,7 +9,6 @@ using Renci.SshNet;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -210,7 +209,7 @@ namespace Core31TestProject
             }
             format.DataTypes = list.ToArray();
 
-            string csvPath = @"D:\Temp\OFP\Extracts\TAYLOR_I2_TRIGGER_SVC_EEOBEM1POP_US_20201125_105454.TXT";
+            string csvPath = @"D:\Temp\OFP\Extracts\20201125_105454.TXT";
 
             StringBuilder sb = new StringBuilder();
             var finfo = new FileInfo(csvPath);
@@ -248,7 +247,7 @@ namespace Core31TestProject
 
         private static void EPPlusExcelTEST()
         {
-            string exlPath = @"D:\Temp\CNO_ItemDataExport20201009.xlsx";
+            string exlPath = @"D:\Temp\20201009.xlsx";
 
             StringBuilder sb = new StringBuilder();
             var finfo = new FileInfo(exlPath);
