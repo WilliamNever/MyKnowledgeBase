@@ -28,8 +28,7 @@ namespace Core31TestProject.Services
             using (var sftp = new SftpClient(connInfoSource))
             {
                 sftp.Connect();
-                ftpFiles = sftp.ListDirectory(ftpSetting.RootPath)
-                    .Where(x => x.IsRegularFile).ToList();
+                ftpFiles = sftp.ListDirectory(ftpSetting.RootPath).Where(x => x.IsRegularFile).ToList();
 
                 foreach (var file in ftpFiles)
                 {
@@ -118,6 +117,11 @@ namespace Core31TestProject.Services
 
     public class FTPServer
     {
+        /// <summary>
+        /// The server we will be transfering from or to.
+        /// The Host should only be a domain name Without the Protocol name.
+        /// Such as: sftp.myLocal.com
+        /// </summary>
         public string Host { get; set; }
         public int Port { get; set; }
         public string UserId { get; set; }
