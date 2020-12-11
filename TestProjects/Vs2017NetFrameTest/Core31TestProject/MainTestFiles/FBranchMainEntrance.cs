@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -27,11 +28,42 @@ namespace Core31TestProject.MainTestFiles
             //Task.WaitAll(FtpServiceTEST());
             //Task.WaitAll(SftpSingleFileServiceTest()); 
             //Task.WaitAll(Sftp_MultipleTasksDownFilesTest());
-            Task.WaitAll();
+            //Task.WaitAll(ForeachLoopEmpty());
+            Task.WaitAll(MD5CreateTEST());
             #endregion
 
             //GZFileExtractTest();
 
+        }
+
+        private async Task MD5CreateTEST()
+        {
+            var md5String = GetHashCode("111111");
+            Console.WriteLine(md5String);
+        }
+        private string GetHashCode(string str)
+        {
+            string rsl = "";
+            using (MD5 md5 = MD5.Create())
+            {
+                byte[] md5Bytes = md5.ComputeHash(Encoding.UTF8.GetBytes(str));
+                md5.Clear();
+                rsl = BitConverter.ToString(md5Bytes).Replace("-", "");
+            }
+            return rsl;
+        }
+
+        private async Task ForeachLoopEmpty()
+        {
+            int loop = 100000;
+            List<int> list = new List<int>(loop);
+            Console.WriteLine(DateTime.Now);
+            foreach(var itm in list)
+            {
+                var itsc = itm;
+                var ob = itm > 300;
+            }
+            Console.WriteLine(DateTime.Now);
         }
 
         private async Task Sftp_MultipleTasksDownFilesTest()
