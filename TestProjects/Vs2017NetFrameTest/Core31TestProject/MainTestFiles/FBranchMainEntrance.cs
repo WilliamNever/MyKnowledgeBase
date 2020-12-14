@@ -43,12 +43,22 @@ namespace Core31TestProject.MainTestFiles
         {
             string temp = "0123456789A";
             Console.WriteLine(temp[1..6]);
-            Console.WriteLine(GetShippingCode("TR31ggg4001",35));
+            Console.WriteLine(GetShippingCodeByDigital("TR31GGG4001",35));
             Console.WriteLine(
                 string.Concat("aa", "", null, "ss")
                 );
         }
+        private string GetShippingCodeByDigital(string orderNumber, int shipSequence)
+        {
+            Regex reg = new Regex("[0-9]{2}");
 
+            {//--
+                var matches = reg.Matches(orderNumber);
+                var reped = reg.Replace(orderNumber, GetShippingSequence(shipSequence), 1, matches[1].Index);
+            //--
+            }
+            return reg.Replace(orderNumber, GetShippingSequence(shipSequence), 1);
+        }
         private string GetShippingCode(string orderNumber, int shipSequence)
         {
             string prefix = "";
