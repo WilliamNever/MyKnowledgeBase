@@ -11,6 +11,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 
@@ -23,17 +24,54 @@ namespace Core31TestProject.MainTestFiles
             #region Tested
             //ExcelDataReaderTest();
             //DocumentFormat_OpenXmlTest();
-            //Console.WriteLine(GetExcelCol(52));
+            //Console.WriteLine(GetExcelCol(701));
+            //Console.WriteLine(GetExcelColIndex("aa"));
             //FilePathTest();
             //Task.WaitAll(FtpServiceTEST());
             //Task.WaitAll(SftpSingleFileServiceTest()); 
             //Task.WaitAll(Sftp_MultipleTasksDownFilesTest());
             //Task.WaitAll(ForeachLoopEmpty());
-            Task.WaitAll(MD5CreateTEST());
+            //Task.WaitAll(MD5CreateTEST());
+            Task.WaitAll(StringTest());
             #endregion
 
             //GZFileExtractTest();
 
+        }
+
+        private async Task StringTest()
+        {
+            string temp = "0123456789A";
+            Console.WriteLine(temp[1..6]);
+            Console.WriteLine(GetShippingCode("TR31ggg4001",35));
+            Console.WriteLine(
+                string.Concat("aa", "", null, "ss")
+                );
+        }
+
+        private string GetShippingCode(string orderNumber, int shipSequence)
+        {
+            string prefix = "";
+            Regex reg = new Regex("[a-zA-Z]+");
+            var matches = reg.Matches(orderNumber);
+            if (matches.Count > 0 && matches[0].Index == 0)
+                prefix = matches[0].Value;
+            var leftString = orderNumber[prefix.Length..];
+            prefix += GetShippingSequence(shipSequence);
+            if (leftString.Length > 2)
+                leftString = leftString[2..];
+            else
+                leftString = "";
+            return prefix + leftString;
+        }
+        private static string GetShippingSequence(int colIndex)
+        {
+            var major = colIndex / 26;
+            var minor = colIndex % 26;
+            var last = ((char)(minor + 'A')).ToString();
+            if (major > 0)
+                return GetShippingSequence(major - 1) + last;
+            return last;
         }
 
         private async Task MD5CreateTEST()
@@ -171,7 +209,7 @@ namespace Core31TestProject.MainTestFiles
         public static int GetExcelColIndex(string x)
         {
             var result = 0;
-            var arr = x.ToCharArray();
+            var arr = x.ToUpper().ToCharArray();
             for (int i = x.Length - 1; i >= 0; i--)
             {
                 result += (arr[i] - 'A' + 1) * (int)Math.Pow(26, x.Length - i - 1);
