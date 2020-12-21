@@ -45,7 +45,7 @@ namespace Core31TestProject.MainTestFiles
             List<Employee> emps = new List<Employee>();
             for (int i = 0; i < 50; i++)
             {
-                emps.Add(new Employee { ID=i, Age=30, FName=$"Index - {i}", Sex='M' });
+                emps.Add(new Employee { ID = i, Age = 30, FName = $"Index - {i}", Sex = 'M' });
             }
             foreach (var item in emps.Where(x => x.Sex == 'M'))
             {
