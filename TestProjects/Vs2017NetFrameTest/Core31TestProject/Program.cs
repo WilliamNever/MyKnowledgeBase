@@ -202,14 +202,14 @@ namespace Core31TestProject
             //format.Culture.DateTimeFormat.ShortDatePattern = "dd-mm-yyyy";
             //format.Encoding = new UTF8Encoding();
 
-            List<eDataTypes> list = new List<eDataTypes>();
-            for (int i = 0; i < 50; i++)
-            {
-                list.Add(eDataTypes.String);
-            }
-            format.DataTypes = list.ToArray();
+            //List<eDataTypes> list = new List<eDataTypes>();
+            //for (int i = 0; i < 50; i++)
+            //{
+            //    list.Add(eDataTypes.String);
+            //}
+            //format.DataTypes = list.ToArray();
 
-            string csvPath = @"D:\Temp\OFP\Extracts\20201125_105454.TXT";
+            string csvPath = @"D:\Temp\OFP\Extracts\11111.TXT";
 
             StringBuilder sb = new StringBuilder();
             var finfo = new FileInfo(csvPath);
@@ -228,6 +228,14 @@ namespace Core31TestProject
 
                 int rowCount = worksheet.Dimension.Rows;
                 int ColCount = worksheet.Dimension.Columns;
+
+                List<eDataTypes> list = new List<eDataTypes>();
+                for (int i = 0; i < ColCount; i++)
+                {
+                    list.Add(eDataTypes.String);
+                }
+                format.DataTypes = list.ToArray();
+                worksheet.Cells["A1"].LoadFromText(finfo, format);
 
                 for (int row = 1; row <= rowCount; row++)
                 {

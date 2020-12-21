@@ -32,18 +32,68 @@ namespace Core31TestProject.MainTestFiles
             //Task.WaitAll(Sftp_MultipleTasksDownFilesTest());
             //Task.WaitAll(ForeachLoopEmpty());
             //Task.WaitAll(MD5CreateTEST());
-            Task.WaitAll(StringTest());
+            //Task.WaitAll(StringTest());
+            Task.WaitAll(ForEachFilterTEST());
             #endregion
 
             //GZFileExtractTest();
 
         }
 
+        private async Task ForEachFilterTEST()
+        {
+            List<Employee> emps = new List<Employee>();
+            for (int i = 0; i < 50; i++)
+            {
+                emps.Add(new Employee { ID=i, Age=30, FName=$"Index - {i}", Sex='M' });
+            }
+            foreach (var item in emps.Where(x => x.Sex == 'M'))
+            {
+                item.Sex = 'F';
+            }
+
+        }
+
+        private int GetIntFromExcelColumn(string str)
+        {
+            int result = 0;
+            var array = str.ToUpper().ToCharArray();
+            //for (int i = array.Length - 1; i > -1; i--)
+            //{
+            //    result += (int)Math.Pow(26, array.Length - i - 1) * (array[i] - 'A' + 1);
+            //}
+            for (int i = 0; i < array.Length; i++)
+            {
+                result += (int)Math.Pow(26, array.Length - i - 1) * (array[i] - 'A' + 1);
+            }
+            return result - 1;
+        }
+        private static string GetShippingSequenceLoop(int shipSequence)
+        {
+            var result = "";
+            int major, sequence = shipSequence;
+            do
+            {
+                major = sequence / 26;
+                var minor = sequence % 26;
+                result = ((char)(minor + 'A')).ToString() + result;
+                sequence = major - 1;
+            } while (major > 0);
+            return result;
+        }
         private async Task StringTest()
         {
+            int aa = 0;
+            Console.WriteLine(++aa);
+            for (int i = aa; i < 0; i++)
+            {
+                string prf = GetShippingSequenceLoop(i);
+                Console.WriteLine($"{prf} - {i} - {GetIntFromExcelColumn(prf)}");
+            }
+            Console.WriteLine("-----------------------");
             string temp = "0123456789A";
-            Console.WriteLine(temp[1..6]);
-            Console.WriteLine(GetShippingCodeByDigital("TR31GGG4001",35));
+            Console.WriteLine(temp[2..]);
+            Console.WriteLine(GetShippingCodeByDigital("TR31GGG4001", 35));
             Console.WriteLine(
                 string.Concat("aa", "", null, "ss")
                 );
