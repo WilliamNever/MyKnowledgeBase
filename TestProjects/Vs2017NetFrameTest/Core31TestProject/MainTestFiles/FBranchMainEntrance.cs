@@ -9,7 +9,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 
@@ -22,16 +24,161 @@ namespace Core31TestProject.MainTestFiles
             #region Tested
             //ExcelDataReaderTest();
             //DocumentFormat_OpenXmlTest();
-            //Console.WriteLine(GetExcelCol(52));
+            //Console.WriteLine(GetExcelCol(701));
+            //Console.WriteLine(GetExcelColIndex("aa"));
             //FilePathTest();
             //Task.WaitAll(FtpServiceTEST());
             //Task.WaitAll(SftpSingleFileServiceTest()); 
             //Task.WaitAll(Sftp_MultipleTasksDownFilesTest());
-            Task.WaitAll();
+            //Task.WaitAll(ForeachLoopEmpty());
+            //Task.WaitAll(MD5CreateTEST());
+            //Task.WaitAll(StringTest());
+            //Task.WaitAll(ForEachFilterTEST());
+            Task.WaitAll(RelectTest());
             #endregion
 
             //GZFileExtractTest();
 
+        }
+        public static string CreateCacheID(string type, params string[] keys)
+            => $"{type}||{string.Join("||", keys)}";
+        private async Task RelectTest()
+        {
+            Console.WriteLine(CreateCacheID("String", "here", "there", "other"));
+            Console.WriteLine("------------------");
+            var task = Task.Run(async () => {
+                return await Task.FromResult(111);
+            });
+            var rsl = await task;
+            Console.WriteLine(rsl);
+
+            IBCI exb = new ExFromBase();
+            var type = exb.GetType();
+            Console.WriteLine(type.Name);
+        }
+
+        private async Task ForEachFilterTEST()
+        {
+            List<Employee> emps = new List<Employee>();
+            for (int i = 0; i < 50; i++)
+            {
+                emps.Add(new Employee { ID = i, Age = 30, FName = $"Index - {i}", Sex = 'M' });
+            }
+            foreach (var item in emps.Where(x => x.Sex == 'M'))
+            {
+                item.Sex = 'F';
+            }
+
+        }
+
+        private int GetIntFromExcelColumn(string str)
+        {
+            int result = 0;
+            var array = str.ToUpper().ToCharArray();
+            //for (int i = array.Length - 1; i > -1; i--)
+            //{
+            //    result += (int)Math.Pow(26, array.Length - i - 1) * (array[i] - 'A' + 1);
+            //}
+            for (int i = 0; i < array.Length; i++)
+            {
+                result += (int)Math.Pow(26, array.Length - i - 1) * (array[i] - 'A' + 1);
+            }
+            return result - 1;
+        }
+        private static string GetShippingSequenceLoop(int shipSequence)
+        {
+            var result = "";
+            int major, sequence = shipSequence;
+            do
+            {
+                major = sequence / 26;
+                var minor = sequence % 26;
+                result = ((char)(minor + 'A')).ToString() + result;
+                sequence = major - 1;
+            } while (major > 0);
+            return result;
+        }
+        private async Task StringTest()
+        {
+            int aa = 0;
+            Console.WriteLine(++aa);
+            for (int i = aa; i < 0; i++)
+            {
+                string prf = GetShippingSequenceLoop(i);
+                Console.WriteLine($"{prf} - {i} - {GetIntFromExcelColumn(prf)}");
+            }
+            Console.WriteLine("-----------------------");
+            string temp = "0123456789A";
+            Console.WriteLine(temp[2..]);
+            Console.WriteLine(GetShippingCodeByDigital("TR31GGG4001", 35));
+            Console.WriteLine(
+                string.Concat("aa", "", null, "ss")
+                );
+        }
+        private string GetShippingCodeByDigital(string orderNumber, int shipSequence)
+        {
+            Regex reg = new Regex("[0-9]{2}");
+
+            {//--
+                var matches = reg.Matches(orderNumber);
+                var reped = reg.Replace(orderNumber, GetShippingSequence(shipSequence), 1, matches[1].Index);
+            //--
+            }
+            return reg.Replace(orderNumber, GetShippingSequence(shipSequence), 1);
+        }
+        private string GetShippingCode(string orderNumber, int shipSequence)
+        {
+            string prefix = "";
+            Regex reg = new Regex("[a-zA-Z]+");
+            var matches = reg.Matches(orderNumber);
+            if (matches.Count > 0 && matches[0].Index == 0)
+                prefix = matches[0].Value;
+            var leftString = orderNumber[prefix.Length..];
+            prefix += GetShippingSequence(shipSequence);
+            if (leftString.Length > 2)
+                leftString = leftString[2..];
+            else
+                leftString = "";
+            return prefix + leftString;
+        }
+        private static string GetShippingSequence(int colIndex)
+        {
+            var major = colIndex / 26;
+            var minor = colIndex % 26;
+            var last = ((char)(minor + 'A')).ToString();
+            if (major > 0)
+                return GetShippingSequence(major - 1) + last;
+            return last;
+        }
+
+        private async Task MD5CreateTEST()
+        {
+            var md5String = GetHashCode("111111");
+            Console.WriteLine(md5String);
+        }
+        private string GetHashCode(string str)
+        {
+            string rsl = "";
+            using (MD5 md5 = MD5.Create())
+            {
+                byte[] md5Bytes = md5.ComputeHash(Encoding.UTF8.GetBytes(str));
+                md5.Clear();
+                rsl = BitConverter.ToString(md5Bytes).Replace("-", "");
+            }
+            return rsl;
+        }
+
+        private async Task ForeachLoopEmpty()
+        {
+            int loop = 100000;
+            List<int> list = new List<int>(loop);
+            Console.WriteLine(DateTime.Now);
+            foreach(var itm in list)
+            {
+                var itsc = itm;
+                var ob = itm > 300;
+            }
+            Console.WriteLine(DateTime.Now);
         }
 
         private async Task Sftp_MultipleTasksDownFilesTest()
@@ -139,7 +286,7 @@ namespace Core31TestProject.MainTestFiles
         public static int GetExcelColIndex(string x)
         {
             var result = 0;
-            var arr = x.ToCharArray();
+            var arr = x.ToUpper().ToCharArray();
             for (int i = x.Length - 1; i >= 0; i--)
             {
                 result += (arr[i] - 'A' + 1) * (int)Math.Pow(26, x.Length - i - 1);
