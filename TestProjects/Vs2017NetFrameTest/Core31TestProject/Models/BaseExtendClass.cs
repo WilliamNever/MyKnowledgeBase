@@ -4,12 +4,21 @@ using System.Text;
 
 namespace Core31TestProject.Models
 {
-    public class BaseClass
+    public interface IBCI
+    {
+        void Done();
+    }
+    public class BaseClass : IBCI
     {
         public static bool IsTrue;
         static BaseClass()
         {
             IsTrue = false;
+        }
+
+        public void Done()
+        {
+            throw new NotImplementedException();
         }
     }
 

@@ -33,11 +33,28 @@ namespace Core31TestProject.MainTestFiles
             //Task.WaitAll(ForeachLoopEmpty());
             //Task.WaitAll(MD5CreateTEST());
             //Task.WaitAll(StringTest());
-            Task.WaitAll(ForEachFilterTEST());
+            //Task.WaitAll(ForEachFilterTEST());
+            Task.WaitAll(RelectTest());
             #endregion
 
             //GZFileExtractTest();
 
+        }
+        public static string CreateCacheID(string type, params string[] keys)
+            => $"{type}||{string.Join("||", keys)}";
+        private async Task RelectTest()
+        {
+            Console.WriteLine(CreateCacheID("String", "here", "there", "other"));
+            Console.WriteLine("------------------");
+            var task = Task.Run(async () => {
+                return await Task.FromResult(111);
+            });
+            var rsl = await task;
+            Console.WriteLine(rsl);
+
+            IBCI exb = new ExFromBase();
+            var type = exb.GetType();
+            Console.WriteLine(type.Name);
         }
 
         private async Task ForEachFilterTEST()
