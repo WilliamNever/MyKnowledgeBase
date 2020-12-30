@@ -1,4 +1,11 @@
-﻿关于 asp.net 输出文件流：
+﻿sql server:
+the difference between the next groups
+Grp1 - 
+select SCOPE_IDENTITY()
+SELECT   @@IDENTITY
+
+
+关于 asp.net 输出文件流：
 
 context.HttpContext.Response.Clear();
 //context.HttpContext.Response.BufferOutput = false;
