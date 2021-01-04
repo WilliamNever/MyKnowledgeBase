@@ -44,9 +44,12 @@ namespace Core31TestProject.MainTestFiles
             => $"{type}||{string.Join("||", keys)}";
         private async Task RelectTest()
         {
+            Console.WriteLine(DateTime.ParseExact("21/11/2020","dd/MM/yyyy", null).ToString());
+            Console.WriteLine($"------------------");
             Console.WriteLine(CreateCacheID("String", "here", "there", "other"));
             Console.WriteLine("------------------");
-            var task = Task.Run(async () => {
+            var task = Task.Run(async () =>
+            {
                 return await Task.FromResult(111);
             });
             var rsl = await task;
@@ -122,7 +125,7 @@ namespace Core31TestProject.MainTestFiles
             {//--
                 var matches = reg.Matches(orderNumber);
                 var reped = reg.Replace(orderNumber, GetShippingSequence(shipSequence), 1, matches[1].Index);
-            //--
+                //--
             }
             return reg.Replace(orderNumber, GetShippingSequence(shipSequence), 1);
         }
@@ -173,7 +176,7 @@ namespace Core31TestProject.MainTestFiles
             int loop = 100000;
             List<int> list = new List<int>(loop);
             Console.WriteLine(DateTime.Now);
-            foreach(var itm in list)
+            foreach (var itm in list)
             {
                 var itsc = itm;
                 var ob = itm > 300;
@@ -184,7 +187,7 @@ namespace Core31TestProject.MainTestFiles
         private async Task Sftp_MultipleTasksDownFilesTest()
         {
             SFTPService sftp = new SFTPService();
-            FTPSettings ftpSettings = new FTPSettings { Server=new FTPServer() };
+            FTPSettings ftpSettings = new FTPSettings { Server = new FTPServer() };
             ftpSettings.OutPutPath = @"D:\Temp\FTPOutputFiles\";
             ftpSettings.RootPath = "XXXXXXXX";
             ftpSettings.SemaphoreSlimInit = 3;

@@ -244,6 +244,7 @@ namespace Core31TestProject
                     {
                         var cell = worksheet.Cells[row, col];
                         var tmp = (cell.Value ?? "").ToString() + "\t";
+                        //var tmp = (cell.Text ?? default) + "\t";
                         sb.Append(tmp);
                     }
                     sb.Append(Environment.NewLine);
