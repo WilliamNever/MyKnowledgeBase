@@ -229,13 +229,13 @@ namespace Core31TestProject
                 int rowCount = worksheet.Dimension.Rows;
                 int ColCount = worksheet.Dimension.Columns;
 
-                List<eDataTypes> list = new List<eDataTypes>();
-                for (int i = 0; i < ColCount; i++)
-                {
-                    list.Add(eDataTypes.String);
-                }
-                format.DataTypes = list.ToArray();
-                worksheet.Cells["A1"].LoadFromText(finfo, format);
+                //List<eDataTypes> list = new List<eDataTypes>();
+                //for (int i = 0; i < ColCount; i++)
+                //{
+                //    list.Add(eDataTypes.String);
+                //}
+                //format.DataTypes = list.ToArray();
+                //worksheet.Cells["A1"].LoadFromText(finfo, format);
 
                 for (int row = 1; row <= rowCount; row++)
                 {

@@ -44,6 +44,8 @@ namespace Core31TestProject.MainTestFiles
             => $"{type}||{string.Join("||", keys)}";
         private async Task RelectTest()
         {
+            //Console.WriteLine(new DateTime(44158));
+            //Console.WriteLine($"------------------");
             Console.WriteLine(DateTime.ParseExact("21/11/2020","dd/MM/yyyy", null).ToString());
             Console.WriteLine($"------------------");
             Console.WriteLine(CreateCacheID("String", "here", "there", "other"));
