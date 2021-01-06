@@ -66,7 +66,9 @@ namespace Core31TestProject
             #endregion
 
             #region BranchMainTest
-            FBranchMainEntrance fBranchMain = new FBranchMainEntrance();
+            TestBaseForMainEntrance fBranchMain
+                = new FBranchMainEntrance();
+                //= new SolvedScenarioService();
             fBranchMain.MainRun();
             #endregion
             //<---------------------------------------->\\
