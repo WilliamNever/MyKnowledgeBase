@@ -44,6 +44,26 @@ namespace Core31TestProject.MainTestFiles
             => $"{type}||{string.Join("||", keys)}";
         private async Task RelectTest()
         {
+            List<Base2> list = new List<Base2>();
+            int loop = 30;
+            for (int i = 0; i < loop; i++)
+            {
+                list.Add(new Base2 { Acx = i });
+            }
+
+            var express = list.Where(x => x.Acx < 15);
+            foreach (var xx in express)
+            {
+                xx.Acx += 50;
+            }
+
+            var mvr = express.ToList();
+
+            int? ix = null, mx = null;
+            ix = mx + 9;
+            Console.WriteLine(ix.HasValue);
+            Console.WriteLine(mx + 9);
+            Console.WriteLine(ix > (mx + 9));
             //Console.WriteLine(new DateTime(44158));
             //Console.WriteLine($"------------------");
             Console.WriteLine(DateTime.ParseExact("21/11/2020","dd/MM/yyyy", null).ToString());

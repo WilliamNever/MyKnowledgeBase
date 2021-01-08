@@ -68,7 +68,7 @@ namespace Core31TestProject
             #region BranchMainTest
             TestBaseForMainEntrance fBranchMain
                 = new FBranchMainEntrance();
-                //= new SolvedScenarioService();
+            //= new SolvedScenarioService();
             fBranchMain.MainRun();
             #endregion
             //<---------------------------------------->\\
@@ -454,7 +454,7 @@ namespace Core31TestProject
             string[] comp = new string[] { "aa" };
             var list = ems.Where(x => comp.Contains(x.FName, new Program()));
             var list1 = ems.Where(x => comp.Any(y => y.Equals(x.FName, StringComparison.OrdinalIgnoreCase)));
-            var distictList = ems.Distinct(new Program());
+            var distictList = ems.Distinct(new Program()).ToList();
             var taskNum = ems.Skip(-1).Take(1).ToList();
 
             string strReturned, NameString = "William";
