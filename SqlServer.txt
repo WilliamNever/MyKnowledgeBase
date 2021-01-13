@@ -1,0 +1,74 @@
+﻿表变量
+declare @tabledec table
+(
+    id INT identity,
+    num NVARCHAR(20)
+)
+
+INSERT INTO  @tabledec(num) VALUES('111') 
+INSERT INTO  @tabledec(num) VALUES('222') 
+
+select * from @tabledec
+
+
+CTE Guide
+
+declare @OrderTmp table
+(
+    id INT identity,
+    Oid int,
+	ItemId int,
+	MaxRelease int,
+	Quantity int,
+	num int null
+)
+--逐行累加合计时点数。
+;with cte(id, MaxRelease, total) as(
+select ot.id,it.[MaxDailyRelease],
+	sum(quantity) OVER (PARTITION BY itemid
+       ORDER BY ot.id
+        ROWS unbounded preceding -- *** unbounded preceding is supported by sql server 2012 at least ***
+       )
+ AS sumnum
+from @OrderTmp ot inner join Items it on ot.itemid=it.id
+)
+update otm 
+set num=cte.total, MaxRelease=cte.MaxRelease 
+from @OrderTmp otm,cte where cte.id=otm.id
+--update - 语句使用别名
+
+/*
+id	Oid	    ItemId	MaxRelease	Quantity[时期数]	num[时点数]
+1	37518	1	    64	        64	        64
+2	38331	1	    64	        64	        128
+3	38677	1	    64	        128	        256
+4	38695	1	    64	        128	        384
+5	37900	1	    64	        64	        448
+6	37993	1	    64	        128	        576
+7	38411	1	    64      	64	        640
+8	37864	1	    64      	128	        768
+9	37882	1	    64	        128	        896
+10	37087	1	    64	        64	        960
+11	37180	1	    64	        128         1088
+12	38046	1	    64	        64	        1152
+13	37233	1	    64	        64	        1216
+*/
+
+多个CTE联用
+--单个写法
+with result as
+(
+select * from TableName where id>10
+)
+select * from result
+ 
+--多个的写法加个逗号，后面的关联不能省
+with result as
+(
+select * from TableName where id>10
+)
+,result2 as
+(
+select * from TableName where age>18
+)
+select * from result a,result2 b where a.id=b.id
