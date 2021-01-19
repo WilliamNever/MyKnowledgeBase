@@ -51,6 +51,8 @@ namespace Core31TestProject.MainTestFiles
                 list.Add(new Base2 { Acx = i });
             }
 
+            var skippedList = list.Skip(20).ToList();
+
             var express = list.Where(x => x.Acx < 15);
             foreach (var xx in express)
             {

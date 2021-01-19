@@ -4,7 +4,9 @@ to download a nuget.exe
 source code set:
 https://github.com/nuget/home
 
+//AppendNugetTest.nuspec - .nuspec file defined the information of the package, as listed below. - it is not all the properties. -
 nuget pack AppendNugetTest.csproj
+
 
 
 rem nuget delete BOSDB2Adapter 1.2.3 -Source http://127.0.0.1:9898/nuget -apikey nltc558 [-NonInteractive]
@@ -12,3 +14,24 @@ rem nuget push BOSDB2Adapter.1.2.3.nupkg -Source http://127.0.0.1:9898/nuget -ap
 rem nuget push *.nupkg -Source http://127.0.0.1:9898/nuget -apikey nltc558
 rem nuget locals all -clear
 rem nuget locals all -list
+
+
+File name - AppendNugetTest.nuspec
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>AppendNugetTest</id>
+    <version>1.0.28</version>
+    <title>AppendNugetTest</title>
+    <authors>William</authors>
+    <owners>Test Team</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>description</description>
+    <releaseNotes>Initial Release.</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>Test nuget package</tags>
+  </metadata>
+    <files>
+        <file src="bin\Debug\XXXXXXX.dll" target="lib\XXXXXX.dll"/>
+    </files>
+</package>
