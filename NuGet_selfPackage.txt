@@ -6,6 +6,7 @@ https://github.com/nuget/home
 
 //AppendNugetTest.nuspec - .nuspec file defined the information of the package, as listed below. - it is not all the properties. -
 nuget pack AppendNugetTest.csproj
+nuget pack DaxnetNugetTest.csproj -Prop Configuration=Release
 
 
 
