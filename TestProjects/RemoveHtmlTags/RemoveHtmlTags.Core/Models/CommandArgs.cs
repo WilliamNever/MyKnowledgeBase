@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RemoveHtmlTags.Models
+namespace RemoveHtmlTags.Core.Models
 {
     public class CommandArgs
     {
