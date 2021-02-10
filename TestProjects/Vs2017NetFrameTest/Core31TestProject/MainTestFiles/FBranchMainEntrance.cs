@@ -34,12 +34,21 @@ namespace Core31TestProject.MainTestFiles
             //Task.WaitAll(MD5CreateTEST());
             //Task.WaitAll(StringTest());
             //Task.WaitAll(ForEachFilterTEST());
-            Task.WaitAll(RelectTest());
+            //Task.WaitAll(RelectTest());
+            Task.WaitAll(StringFormatTest());
             #endregion
 
             //GZFileExtractTest();
 
         }
+
+        private async Task StringFormatTest()
+        {
+            string aaa = "aaa";
+            Console.WriteLine(!(aaa is "aaa"));
+            Console.WriteLine(333.25555.ToString("C4"));
+        }
+
         public static string CreateCacheID(string type, params string[] keys)
             => $"{type}||{string.Join("||", keys)}";
         private async Task RelectTest()

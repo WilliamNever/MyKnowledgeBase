@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoveHtmlTags", "RemoveHtmlTags.csproj", "{B716F824-8DA6-43B2-98CA-783B0F79FAAD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B716F824-8DA6-43B2-98CA-783B0F79FAAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B716F824-8DA6-43B2-98CA-783B0F79FAAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B716F824-8DA6-43B2-98CA-783B0F79FAAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B716F824-8DA6-43B2-98CA-783B0F79FAAD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {48F3A00A-99D8-4943-9155-0A82EFE0FC22}
+	EndGlobalSection
+EndGlobal

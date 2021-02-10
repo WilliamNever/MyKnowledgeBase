@@ -39,7 +39,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core31TestProject", "Core31
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Standard21TestProject", "Standard21TestProject\Standard21TestProject.csproj", "{D0650A06-B887-4D49-9B91-3A0BB981A8BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HostTest", "HostTest\HostTest.csproj", "{0923767A-335C-42EC-A885-EED21E2AECA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HostTest", "HostTest\HostTest.csproj", "{0923767A-335C-42EC-A885-EED21E2AECA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
