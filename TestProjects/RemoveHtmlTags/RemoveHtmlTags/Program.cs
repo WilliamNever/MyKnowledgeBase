@@ -28,11 +28,12 @@ namespace RemoveHtmlTags
                 Console.WriteLine($"RemoveHtmlTags.exe -p . -px *.* -i 0 -m aaa.txt");
                 Console.WriteLine($"{CommandArgs.PathCommand} is required. the files in the path to process.");
                 Console.WriteLine($"{CommandArgs.PatternFilterCommand} is required. the filter to pick up the files. default is *.* ");
-                Console.WriteLine($"{CommandArgs.BeginIndexCommand} process the files index that bigger than the value. it can be null, if it is null, do not process the filter.");
+                Console.WriteLine($"{CommandArgs.BeginIndexCommand} process the files index that bigger than the value. it can be null or missed, if it is null or missed, the filter will be inactive.");
                 Console.WriteLine($"{CommandArgs.OutputDirectoryCommand} the folder to Save Each processed file.");
                 Console.WriteLine($"{CommandArgs.MergedFileFullNameCommand} the merged file that cotained all the processed files.");
 
                 Console.WriteLine($"{CommandArgs.OutputDirectoryCommand} and {CommandArgs.MergedFileFullNameCommand} cannot be empty at same time.");
+                return;
             }
 
             cmdArgs = new ReadCommandArgsService().ReadFromCommandArgs(args);

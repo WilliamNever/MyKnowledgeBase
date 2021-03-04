@@ -65,8 +65,8 @@ namespace RemoveHtmlTags.Core.Services
                     sw = new StreamWriter(fsw, Encoding.UTF8);
                 }
                 WriteFiles(files, sw, AppSettings, cmdArgs);
-                Console.WriteLine($"The listed files are processed!");
-                Console.WriteLine($"{string.Join(";", files.Select(x => Path.GetFileName(x.FullFileName)))}");
+                //Console.WriteLine($"The listed files are processed!");
+                //Console.WriteLine($"{string.Join(";", files.Select(x => Path.GetFileName(x.FullFileName)))}");
             }
             catch (Exception ex)
             {

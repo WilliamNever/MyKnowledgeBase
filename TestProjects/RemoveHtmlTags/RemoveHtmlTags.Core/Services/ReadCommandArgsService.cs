@@ -21,7 +21,7 @@ namespace RemoveHtmlTags.Core.Services
             index = Array.FindIndex(args, x => x.Equals(CommandArgs.PathCommand, StringComparison.OrdinalIgnoreCase));
             if (index > -1 && (index + 1) < args.Length) rs.Path = args[index + 1];
             index = Array.FindIndex(args, x => x.Equals(CommandArgs.BeginIndexCommand, StringComparison.OrdinalIgnoreCase));
-            if (index > -1 && (index + 1) < args.Length) rs.BegingIndex = int.Parse(args[index + 1]);
+            if (index > -1 && (index + 1) < args.Length) rs.BegingIndex = int.TryParse(args[index + 1], out int bid) ? bid : (int?)null;
             index = Array.FindIndex(args, x => x.Equals(CommandArgs.OutputDirectoryCommand, StringComparison.OrdinalIgnoreCase));
             if (index > -1 && (index + 1) < args.Length) rs.OutputDirectory = args[index + 1];
             index = Array.FindIndex(args, x => x.Equals(CommandArgs.MergedFileFullNameCommand, StringComparison.OrdinalIgnoreCase));

@@ -44,6 +44,7 @@ namespace Core31TestProject.MainTestFiles
 
         private async Task StringFormatTest()
         {
+            Console.WriteLine(DateTime.UtcNow.ToString());
             string aaa = "aaa";
             Console.WriteLine(!(aaa is "aaa"));
             Console.WriteLine(333.25555.ToString("C4"));
