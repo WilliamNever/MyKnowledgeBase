@@ -57,9 +57,9 @@ namespace Core31TestProject.MainTestFiles
             var x1 = op.GetInt(1);
         }
 
-        public static int StGetInt(int ix)
+        public static string StGetInt(int ix)
         {
-            return ix + 100;
+            return ix.ToString() + 100;
         }
         private async Task StringFormatTest()
         {

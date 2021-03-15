@@ -6,6 +6,6 @@ namespace Core31TestProject.Interfaces
 {
     public interface IMockTest
     {
-        int GetInt(int i);
+        string GetInt(int i);
     }
 }
