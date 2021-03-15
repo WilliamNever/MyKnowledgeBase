@@ -17,5 +17,6 @@
     <PackageReference Include="SSH.NET" Version="2020.0.0-beta1" />
     <PackageReference Include="ExcelDataReader" Version="3.6.0" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
+    <PackageReference Include="Moq" Version="4.13.1" />
   </ItemGroup>
 </Project>

@@ -1,9 +1,11 @@
-﻿using Core31TestProject.Models;
+﻿using Core31TestProject.Interfaces;
+using Core31TestProject.Models;
 using Core31TestProject.Services;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using ExcelDataReader;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -35,13 +37,30 @@ namespace Core31TestProject.MainTestFiles
             //Task.WaitAll(StringTest());
             //Task.WaitAll(ForEachFilterTEST());
             //Task.WaitAll(RelectTest());
-            Task.WaitAll(StringFormatTest());
+            //Task.WaitAll(StringFormatTest());
+            Task.WaitAll(MockTest());
             #endregion
 
             //GZFileExtractTest();
 
         }
+        private async Task MockTest()
+        {
+            //InvocationAction
+            int ix = 0, rx = 0;
+            var mockInt = new Mock<IMockTest>();
+            mockInt.Setup(x => x.GetInt(It.IsAny<int>()))
+                .Callback<int>((i) => { ix = i; })
+                .Returns<int>(i => { rx = i; return StGetInt(rx); });
+            var op = mockInt.Object;
+            var cw = op.GetInt(2);
+            var x1 = op.GetInt(1);
+        }
 
+        public static int StGetInt(int ix)
+        {
+            return ix + 100;
+        }
         private async Task StringFormatTest()
         {
             Console.WriteLine(DateTime.UtcNow.ToString());
