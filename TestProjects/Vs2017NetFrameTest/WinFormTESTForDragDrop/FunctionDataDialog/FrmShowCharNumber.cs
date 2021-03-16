@@ -103,5 +103,16 @@ namespace WinFormTESTForDragDrop.FunctionDataDialog
             txtMessageInformation.Text += "\r\n";
             txtMessageInformation.Text += $"DateTime\t\t{DateTime.MinValue.ToString()}\t\t{DateTime.MaxValue.ToString()}\r\n";
         }
+
+        private void btnGeneralNewGuid_Click(object sender, EventArgs e)
+        {
+            txtMessageInformation.Text += Guid.NewGuid().ToString();
+            txtMessageInformation.Text += "\r\n";
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            txtMessageInformation.Text = "";
+        }
     }
 }
