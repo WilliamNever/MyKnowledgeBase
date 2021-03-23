@@ -66,7 +66,9 @@ namespace Core31TestProject
             #endregion
 
             #region BranchMainTest
-            FBranchMainEntrance fBranchMain = new FBranchMainEntrance();
+            TestBaseForMainEntrance fBranchMain
+                = new FBranchMainEntrance();
+            //= new SolvedScenarioService();
             fBranchMain.MainRun();
             #endregion
             //<---------------------------------------->\\
@@ -229,13 +231,13 @@ namespace Core31TestProject
                 int rowCount = worksheet.Dimension.Rows;
                 int ColCount = worksheet.Dimension.Columns;
 
-                List<eDataTypes> list = new List<eDataTypes>();
-                for (int i = 0; i < ColCount; i++)
-                {
-                    list.Add(eDataTypes.String);
-                }
-                format.DataTypes = list.ToArray();
-                worksheet.Cells["A1"].LoadFromText(finfo, format);
+                //List<eDataTypes> list = new List<eDataTypes>();
+                //for (int i = 0; i < ColCount; i++)
+                //{
+                //    list.Add(eDataTypes.String);
+                //}
+                //format.DataTypes = list.ToArray();
+                //worksheet.Cells["A1"].LoadFromText(finfo, format);
 
                 for (int row = 1; row <= rowCount; row++)
                 {
@@ -244,6 +246,7 @@ namespace Core31TestProject
                     {
                         var cell = worksheet.Cells[row, col];
                         var tmp = (cell.Value ?? "").ToString() + "\t";
+                        //var tmp = (cell.Text ?? default) + "\t";
                         sb.Append(tmp);
                     }
                     sb.Append(Environment.NewLine);
@@ -451,7 +454,7 @@ namespace Core31TestProject
             string[] comp = new string[] { "aa" };
             var list = ems.Where(x => comp.Contains(x.FName, new Program()));
             var list1 = ems.Where(x => comp.Any(y => y.Equals(x.FName, StringComparison.OrdinalIgnoreCase)));
-            var distictList = ems.Distinct(new Program());
+            var distictList = ems.Distinct(new Program()).ToList();
             var taskNum = ems.Skip(-1).Take(1).ToList();
 
             string strReturned, NameString = "William";

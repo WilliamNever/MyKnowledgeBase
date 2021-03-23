@@ -1,9 +1,11 @@
-﻿using Core31TestProject.Models;
+﻿using Core31TestProject.Interfaces;
+using Core31TestProject.Models;
 using Core31TestProject.Services;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using ExcelDataReader;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -34,19 +36,73 @@ namespace Core31TestProject.MainTestFiles
             //Task.WaitAll(MD5CreateTEST());
             //Task.WaitAll(StringTest());
             //Task.WaitAll(ForEachFilterTEST());
-            Task.WaitAll(RelectTest());
+            //Task.WaitAll(RelectTest());
+            //Task.WaitAll(StringFormatTest());
+            Task.WaitAll(MockTest());
             #endregion
 
             //GZFileExtractTest();
 
         }
+        private async Task MockTest()
+        {
+            //InvocationAction
+            int ix = 0, rx = 0;
+            var mockInt = new Mock<IMockTest>();
+            mockInt.Setup(x => x.GetInt(It.IsAny<int>()))
+                .Callback<int>((i) => { ix = i; })
+                .Returns<int>(i => { rx = i; return StGetInt(rx); });
+            var op = mockInt.Object;
+            var cw = op.GetInt(2);
+            var x1 = op.GetInt(1);
+        }
+
+        public static string StGetInt(int ix)
+        {
+            return ix.ToString() + 100;
+        }
+        private async Task StringFormatTest()
+        {
+            Console.WriteLine(DateTime.UtcNow.ToString());
+            string aaa = "aaa";
+            Console.WriteLine(!(aaa is "aaa"));
+            Console.WriteLine(333.25555.ToString("C4"));
+        }
+
         public static string CreateCacheID(string type, params string[] keys)
             => $"{type}||{string.Join("||", keys)}";
         private async Task RelectTest()
         {
+            List<Base2> list = new List<Base2>();
+            int loop = 30;
+            for (int i = 0; i < loop; i++)
+            {
+                list.Add(new Base2 { Acx = i });
+            }
+
+            var skippedList = list.Skip(20).ToList();
+
+            var express = list.Where(x => x.Acx < 15);
+            foreach (var xx in express)
+            {
+                xx.Acx += 50;
+            }
+
+            var mvr = express.ToList();
+
+            int? ix = null, mx = null;
+            ix = mx + 9;
+            Console.WriteLine(ix.HasValue);
+            Console.WriteLine(mx + 9);
+            Console.WriteLine(ix > (mx + 9));
+            //Console.WriteLine(new DateTime(44158));
+            //Console.WriteLine($"------------------");
+            Console.WriteLine(DateTime.ParseExact("21/11/2020","dd/MM/yyyy", null).ToString());
+            Console.WriteLine($"------------------");
             Console.WriteLine(CreateCacheID("String", "here", "there", "other"));
             Console.WriteLine("------------------");
-            var task = Task.Run(async () => {
+            var task = Task.Run(async () =>
+            {
                 return await Task.FromResult(111);
             });
             var rsl = await task;
@@ -122,7 +178,7 @@ namespace Core31TestProject.MainTestFiles
             {//--
                 var matches = reg.Matches(orderNumber);
                 var reped = reg.Replace(orderNumber, GetShippingSequence(shipSequence), 1, matches[1].Index);
-            //--
+                //--
             }
             return reg.Replace(orderNumber, GetShippingSequence(shipSequence), 1);
         }
@@ -173,7 +229,7 @@ namespace Core31TestProject.MainTestFiles
             int loop = 100000;
             List<int> list = new List<int>(loop);
             Console.WriteLine(DateTime.Now);
-            foreach(var itm in list)
+            foreach (var itm in list)
             {
                 var itsc = itm;
                 var ob = itm > 300;
@@ -184,7 +240,7 @@ namespace Core31TestProject.MainTestFiles
         private async Task Sftp_MultipleTasksDownFilesTest()
         {
             SFTPService sftp = new SFTPService();
-            FTPSettings ftpSettings = new FTPSettings { Server=new FTPServer() };
+            FTPSettings ftpSettings = new FTPSettings { Server = new FTPServer() };
             ftpSettings.OutPutPath = @"D:\Temp\FTPOutputFiles\";
             ftpSettings.RootPath = "XXXXXXXX";
             ftpSettings.SemaphoreSlimInit = 3;
