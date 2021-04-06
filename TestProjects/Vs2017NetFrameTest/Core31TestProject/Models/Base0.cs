@@ -6,17 +6,19 @@ namespace Core31TestProject.Models
 {
     public class Base0
     {
-        public int Rec { get; set; }
+        public virtual int Rec { get; set; }
         public List<Base1> b1List { get; set; }
     }
 
-    public class Base1{
+    public class Base1 : Base0
+    {
         public int Acg { get; set; }
         public List<Base2> b2List { get; set; }
     }
 
-    public class Base2
+    public class Base2 : Base1
     {
+        public override int Rec { get; set; }
         public int Acx { get; set; }
     }
 }
