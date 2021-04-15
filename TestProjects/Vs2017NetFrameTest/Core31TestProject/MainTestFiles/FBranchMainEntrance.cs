@@ -39,12 +39,23 @@ namespace Core31TestProject.MainTestFiles
             //Task.WaitAll(RelectTest());
             //Task.WaitAll(StringFormatTest());
             //Task.WaitAll(MockTest());
-            Task.WaitAll(ReflectTest());
+            //Task.WaitAll(ReflectTest());
+            Task.WaitAll(NewtonJsonPropertiesTest());
             #endregion
 
             //GZFileExtractTest();
 
         }
+
+        private async Task NewtonJsonPropertiesTest()
+        {
+            JsonPropertiesIgnoreTestClass jpit = new JsPEx();
+            string str = Newtonsoft.Json.JsonConvert.SerializeObject(jpit);
+            string json = "{'HellWorld':'DeSerialize', Name:'JJJJJ'}";
+            var jpit1 = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonPropertiesIgnoreTestClass>(json);
+            var jpit2 = Newtonsoft.Json.JsonConvert.DeserializeObject<JsPEx>(json);
+        }
+
         private async Task ReflectTest()
         {
             var type = typeof(Base2);
