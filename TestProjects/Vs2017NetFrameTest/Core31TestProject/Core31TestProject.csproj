@@ -5,6 +5,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="CompareNETObjects" Version="4.73.0" />
     <PackageReference Include="FileHelpers" Version="3.4.2" />
     <PackageReference Include="DocumentFormat.OpenXml" Version="2.11.3" />
     <PackageReference Include="EPPlus" Version="4.5.3.3" />
