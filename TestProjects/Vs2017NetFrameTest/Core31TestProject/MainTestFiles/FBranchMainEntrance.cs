@@ -49,12 +49,15 @@ namespace Core31TestProject.MainTestFiles
 
         private async Task NewtonJsonPropertiesTest()
         {
-            string[] strList = null;    // new string[] {  };//"aaa"
+            string stdt = DateTime.Now.ToString("yyyyMMdd");
+
+            string[] strList = null;    //new string[] { null };   //"aaa"
             if ((strList?.Length) > 0)
             {
                 var svl = strList[0];
             }
 
+            var slst = strList?.Where(x => x?.Equals("aa") ?? false).ToList();
 
             JsonPropertiesIgnoreTestClass jpit = new JsPEx();
             string str = Newtonsoft.Json.JsonConvert.SerializeObject(jpit);

@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FunctionDataDialog\FrmReplaceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FunctionDataDialog\FrmReplaceDialog.Designer.cs">
+      <DependentUpon>FrmReplaceDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="FunctionDataDialog\FrmShowCharNumber.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,6 +70,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FunctionDataDialog\FrmReplaceDialog.resx">
+      <DependentUpon>FrmReplaceDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FunctionDataDialog\FrmShowCharNumber.resx">
       <DependentUpon>FrmShowCharNumber.cs</DependentUpon>
     </EmbeddedResource>
