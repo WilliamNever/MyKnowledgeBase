@@ -49,12 +49,21 @@ namespace Core31TestProject.MainTestFiles
 
         private async Task NewtonJsonPropertiesTest()
         {
+            string[] strList = null;    // new string[] {  };//"aaa"
+            if ((strList?.Length) > 0)
+            {
+                var svl = strList[0];
+            }
+
+
             JsonPropertiesIgnoreTestClass jpit = new JsPEx();
             string str = Newtonsoft.Json.JsonConvert.SerializeObject(jpit);
 
             string json = "{'HellWorld':'DeSerialize', Name:'JJJJJ'}";
             var jpit1 = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonPropertiesIgnoreTestClass>(json);
             var jpit2 = Newtonsoft.Json.JsonConvert.DeserializeObject<JsPEx>(json);
+            var jpit3 = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
+            var outJson = Newtonsoft.Json.JsonConvert.SerializeObject(jpit3, Newtonsoft.Json.Formatting.Indented);
         }
 
         private async Task ReflectTest()

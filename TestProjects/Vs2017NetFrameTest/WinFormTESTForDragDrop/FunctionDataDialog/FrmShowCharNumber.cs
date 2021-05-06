@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -69,8 +70,30 @@ namespace WinFormTESTForDragDrop.FunctionDataDialog
                 case "tsmClose":
                     Close();
                     break;
+
+                case "tsmShowFormattedJson":
+                    txtMessageInformation.Text = GetFormattedJson(txtMessageInformation.Text, Newtonsoft.Json.Formatting.Indented);
+                    break;
+                case "tsmShowNoFormattedJson":
+                    txtMessageInformation.Text = GetFormattedJson(txtMessageInformation.Text, Newtonsoft.Json.Formatting.None);
+                    break;
             }
         }
+
+        private string GetFormattedJson(string text, Formatting formatting)
+        {
+            string result = text;
+            try
+            {
+                result = Newtonsoft.Json.JsonConvert.SerializeObject(Newtonsoft.Json.JsonConvert.DeserializeObject(result), formatting);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Json Convert Error ...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return result;
+        }
+
         private void CloseAllMenu()
         {
             foreach (var item in MSMainMenu.Items)

@@ -32,6 +32,8 @@
             this.btnShowCharNumber = new System.Windows.Forms.Button();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.grpFunctionality = new System.Windows.Forms.GroupBox();
+            this.btnClear = new System.Windows.Forms.Button();
+            this.btnGeneralNewGuid = new System.Windows.Forms.Button();
             this.btnMinMax = new System.Windows.Forms.Button();
             this.MSMainMenu = new System.Windows.Forms.MenuStrip();
             this.tsmiFunctions = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,8 +43,9 @@
             this.tsmAppAndClose = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmClose = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnGeneralNewGuid = new System.Windows.Forms.Button();
-            this.btnClear = new System.Windows.Forms.Button();
+            this.tsmiTools = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmShowFormattedJson = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmShowNoFormattedJson = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMain.SuspendLayout();
             this.grpFunctionality.SuspendLayout();
             this.MSMainMenu.SuspendLayout();
@@ -54,7 +57,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtMessageInformation.Location = new System.Drawing.Point(16, 156);
-            this.txtMessageInformation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMessageInformation.Margin = new System.Windows.Forms.Padding(4);
             this.txtMessageInformation.MaxLength = 0;
             this.txtMessageInformation.Multiline = true;
             this.txtMessageInformation.Name = "txtMessageInformation";
@@ -65,7 +68,7 @@
             // btnShowCharNumber
             // 
             this.btnShowCharNumber.Location = new System.Drawing.Point(8, 23);
-            this.btnShowCharNumber.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnShowCharNumber.Margin = new System.Windows.Forms.Padding(4);
             this.btnShowCharNumber.Name = "btnShowCharNumber";
             this.btnShowCharNumber.Size = new System.Drawing.Size(112, 28);
             this.btnShowCharNumber.TabIndex = 0;
@@ -80,7 +83,7 @@
             this.pnlMain.Controls.Add(this.MSMainMenu);
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(0, 0);
-            this.pnlMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlMain.Margin = new System.Windows.Forms.Padding(4);
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(1067, 554);
             this.pnlMain.TabIndex = 1;
@@ -94,18 +97,38 @@
             this.grpFunctionality.Controls.Add(this.btnMinMax);
             this.grpFunctionality.Controls.Add(this.btnShowCharNumber);
             this.grpFunctionality.Location = new System.Drawing.Point(16, 49);
-            this.grpFunctionality.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpFunctionality.Margin = new System.Windows.Forms.Padding(4);
             this.grpFunctionality.Name = "grpFunctionality";
-            this.grpFunctionality.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpFunctionality.Padding = new System.Windows.Forms.Padding(4);
             this.grpFunctionality.Size = new System.Drawing.Size(1035, 100);
             this.grpFunctionality.TabIndex = 1;
             this.grpFunctionality.TabStop = false;
             this.grpFunctionality.Text = "Functionality";
             // 
+            // btnClear
+            // 
+            this.btnClear.Location = new System.Drawing.Point(953, 70);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(75, 23);
+            this.btnClear.TabIndex = 3;
+            this.btnClear.Text = "Clear";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // btnGeneralNewGuid
+            // 
+            this.btnGeneralNewGuid.Location = new System.Drawing.Point(138, 23);
+            this.btnGeneralNewGuid.Name = "btnGeneralNewGuid";
+            this.btnGeneralNewGuid.Size = new System.Drawing.Size(112, 28);
+            this.btnGeneralNewGuid.TabIndex = 2;
+            this.btnGeneralNewGuid.Text = "New Guid";
+            this.btnGeneralNewGuid.UseVisualStyleBackColor = true;
+            this.btnGeneralNewGuid.Click += new System.EventHandler(this.btnGeneralNewGuid_Click);
+            // 
             // btnMinMax
             // 
             this.btnMinMax.Location = new System.Drawing.Point(8, 60);
-            this.btnMinMax.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnMinMax.Margin = new System.Windows.Forms.Padding(4);
             this.btnMinMax.Name = "btnMinMax";
             this.btnMinMax.Size = new System.Drawing.Size(112, 28);
             this.btnMinMax.TabIndex = 1;
@@ -117,7 +140,8 @@
             // 
             this.MSMainMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.MSMainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiFunctions});
+            this.tsmiFunctions,
+            this.tsmiTools});
             this.MSMainMenu.Location = new System.Drawing.Point(0, 0);
             this.MSMainMenu.Name = "MSMainMenu";
             this.MSMainMenu.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
@@ -174,25 +198,27 @@
             this.tsmClose.Size = new System.Drawing.Size(240, 26);
             this.tsmClose.Text = "Cl&ose";
             // 
-            // btnGeneralNewGuid
+            // tsmiTools
             // 
-            this.btnGeneralNewGuid.Location = new System.Drawing.Point(138, 23);
-            this.btnGeneralNewGuid.Name = "btnGeneralNewGuid";
-            this.btnGeneralNewGuid.Size = new System.Drawing.Size(112, 28);
-            this.btnGeneralNewGuid.TabIndex = 2;
-            this.btnGeneralNewGuid.Text = "New Guid";
-            this.btnGeneralNewGuid.UseVisualStyleBackColor = true;
-            this.btnGeneralNewGuid.Click += new System.EventHandler(this.btnGeneralNewGuid_Click);
+            this.tsmiTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmShowFormattedJson,
+            this.tsmShowNoFormattedJson});
+            this.tsmiTools.Name = "tsmiTools";
+            this.tsmiTools.Size = new System.Drawing.Size(58, 24);
+            this.tsmiTools.Text = "&Tools";
+            this.tsmiTools.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.tsmiFunctions_DropDownItemClicked);
             // 
-            // btnClear
+            // tsmShowFormattedJson
             // 
-            this.btnClear.Location = new System.Drawing.Point(953, 70);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(75, 23);
-            this.btnClear.TabIndex = 3;
-            this.btnClear.Text = "Clear";
-            this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            this.tsmShowFormattedJson.Name = "tsmShowFormattedJson";
+            this.tsmShowFormattedJson.Size = new System.Drawing.Size(256, 26);
+            this.tsmShowFormattedJson.Text = "Show Formatted Json";
+            // 
+            // tsmShowNoFormattedJson
+            // 
+            this.tsmShowNoFormattedJson.Name = "tsmShowNoFormattedJson";
+            this.tsmShowNoFormattedJson.Size = new System.Drawing.Size(256, 26);
+            this.tsmShowNoFormattedJson.Text = "Show No Formatted json";
             // 
             // FrmShowCharNumber
             // 
@@ -201,7 +227,7 @@
             this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.pnlMain);
             this.MainMenuStrip = this.MSMainMenu;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmShowCharNumber";
             this.Text = "FrmShowCharNumber";
             this.pnlMain.ResumeLayout(false);
@@ -230,5 +256,8 @@
         private System.Windows.Forms.Button btnMinMax;
         private System.Windows.Forms.Button btnGeneralNewGuid;
         private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.ToolStripMenuItem tsmiTools;
+        private System.Windows.Forms.ToolStripMenuItem tsmShowFormattedJson;
+        private System.Windows.Forms.ToolStripMenuItem tsmShowNoFormattedJson;
     }
 }
