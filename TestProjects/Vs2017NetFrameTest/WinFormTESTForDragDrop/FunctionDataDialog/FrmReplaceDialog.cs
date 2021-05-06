@@ -54,10 +54,12 @@ namespace WinFormTESTForDragDrop.FunctionDataDialog
             string result = text;
             var mcaseOption = mcase ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
             int index = result?.IndexOf(find, mcaseOption) ?? -1;
+            string ReplacedString;
             while (index > -1)
             {
-                result = $"{result.Substring(0, index)}{replacement}{result.Substring(index + find.Length)}";
-                index = result?.IndexOf(find, mcaseOption) ?? -1;
+                ReplacedString = $"{result.Substring(0, index)}{replacement}";
+                result = $"{ReplacedString}{result.Substring(index + find.Length)}";
+                index = result?.IndexOf(find, ReplacedString.Length, mcaseOption) ?? -1;
             }
             return result;
         }
