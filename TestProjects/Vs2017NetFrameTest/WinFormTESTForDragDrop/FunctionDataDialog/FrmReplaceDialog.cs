@@ -52,11 +52,12 @@ namespace WinFormTESTForDragDrop.FunctionDataDialog
         private string CommonReplace(string text, string find, string replacement, bool mcase)
         {
             string result = text;
-            int index = result?.IndexOf(find, mcase ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase) ?? -1;
+            var mcaseOption = mcase ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
+            int index = result?.IndexOf(find, mcaseOption) ?? -1;
             while (index > -1)
             {
                 result = $"{result.Substring(0, index)}{replacement}{result.Substring(index + find.Length)}";
-                index = result?.IndexOf(find, mcase ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase) ?? -1;
+                index = result?.IndexOf(find, mcaseOption) ?? -1;
             }
             return result;
         }
