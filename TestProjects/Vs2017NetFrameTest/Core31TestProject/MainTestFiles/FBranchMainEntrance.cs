@@ -49,12 +49,24 @@ namespace Core31TestProject.MainTestFiles
 
         private async Task NewtonJsonPropertiesTest()
         {
+            string stdt = DateTime.Now.ToString("yyyyMMdd");
+
+            string[] strList = null;    //new string[] { null };   //"aaa"
+            if ((strList?.Length) > 0)
+            {
+                var svl = strList[0];
+            }
+
+            var slst = strList?.Where(x => x?.Equals("aa") ?? false).ToList();
+
             JsonPropertiesIgnoreTestClass jpit = new JsPEx();
             string str = Newtonsoft.Json.JsonConvert.SerializeObject(jpit);
 
             string json = "{'HellWorld':'DeSerialize', Name:'JJJJJ'}";
             var jpit1 = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonPropertiesIgnoreTestClass>(json);
             var jpit2 = Newtonsoft.Json.JsonConvert.DeserializeObject<JsPEx>(json);
+            var jpit3 = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
+            var outJson = Newtonsoft.Json.JsonConvert.SerializeObject(jpit3, Newtonsoft.Json.Formatting.Indented);
         }
 
         private async Task ReflectTest()

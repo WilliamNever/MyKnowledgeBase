@@ -9,5 +9,6 @@ namespace WinFormTESTForDragDrop.InterFace
     public interface IFormFunctions
     {
         void CopyTextToForm(string txt, bool isAppend);
+        System.Windows.Forms.TextBox GetContentsBox();
     }
 }

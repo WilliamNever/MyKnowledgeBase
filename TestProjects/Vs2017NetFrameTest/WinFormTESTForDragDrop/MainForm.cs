@@ -311,6 +311,9 @@ namespace WinFormTESTForDragDrop
                 case "MNIFontSelect":
                     SetDefaultFont();
                     break;
+                case "MNIReplace":
+                    new frmReplace(this).Show();
+                    break;
             }
         }
 
@@ -338,6 +341,11 @@ namespace WinFormTESTForDragDrop
                 text.Split(new string[] { breakStr }, StringSplitOptions.None)?
                 .Select(x => string.IsNullOrEmpty(x) ? "" : x.Trim());
             return string.Join(breakStr, lines);
+        }
+
+        TextBox IFormFunctions.GetContentsBox()
+        {
+            return txtContents;
         }
     }
 }
