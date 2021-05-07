@@ -8,13 +8,15 @@ namespace Core31TestProject.Models
     public abstract class TestBaseForMainEntrance
     {
         public abstract void MainRun();
-        public static bool CommonCompare<T>(T result, T expectation, ComparisonConfig comparisonConfig = null)
+        public static bool CommonCompare<T>(T expectation, T result, ComparisonConfig comparisonConfig = null)
         {
-            if (result == null && expectation == null) return true;
-
+            return CommonCompareResult(expectation, result, comparisonConfig).AreEqual;
+        }
+        public static ComparisonResult CommonCompareResult<T>(T expectation, T result, ComparisonConfig comparisonConfig = null)
+        {
             var compare = comparisonConfig == null ? new CompareLogic() : new CompareLogic(comparisonConfig);
             ComparisonResult comparisonResult = compare.Compare(expectation, result);
-            return comparisonResult.AreEqual;
+            return comparisonResult;
         }
     }
 }

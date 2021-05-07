@@ -27,7 +27,7 @@ namespace Core31TestProject
         {
             services.AddTransient<BsInterface, SvrClass>();
             services.AddTransient<BsInterface, ServicesClass>();
-            
+
             services.AddTransient<Svr<string>, ServicesClass>();
 
             provider = services.BuildServiceProvider();
@@ -67,7 +67,8 @@ namespace Core31TestProject
 
             #region BranchMainTest
             TestBaseForMainEntrance fBranchMain
-                = new FBranchMainEntrance();
+                = new ThirdBranchMainEntrance();
+            //= new FBranchMainEntrance();
             //= new SolvedScenarioService();
             fBranchMain.MainRun();
             #endregion
