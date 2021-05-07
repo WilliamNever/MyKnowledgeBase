@@ -21,8 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleForDNetFrameWork", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCoreProject", "TestCoreProject\TestCoreProject.csproj", "{84266510-3651-4931-9126-5EE9CBC154CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormTESTForDragDrop", "WinFormTESTForDragDrop\WinFormTESTForDragDrop.csproj", "{9DD58E46-90E4-4EE4-9EA7-3F1B6C63B509}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Documents", "Documents\Documents.csproj", "{D2999B13-3C81-48AE-A569-CDBA9F6BEE7E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreTestProject", "CoreTestProject\CoreTestProject.csproj", "{C40ABF43-979C-48F4-93FD-E6B461B00097}"
@@ -83,10 +81,6 @@ Global
 		{84266510-3651-4931-9126-5EE9CBC154CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84266510-3651-4931-9126-5EE9CBC154CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84266510-3651-4931-9126-5EE9CBC154CA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9DD58E46-90E4-4EE4-9EA7-3F1B6C63B509}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9DD58E46-90E4-4EE4-9EA7-3F1B6C63B509}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9DD58E46-90E4-4EE4-9EA7-3F1B6C63B509}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9DD58E46-90E4-4EE4-9EA7-3F1B6C63B509}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D2999B13-3C81-48AE-A569-CDBA9F6BEE7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D2999B13-3C81-48AE-A569-CDBA9F6BEE7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2999B13-3C81-48AE-A569-CDBA9F6BEE7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
