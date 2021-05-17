@@ -1,6 +1,7 @@
 ﻿using Core31TestProject.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +16,8 @@ namespace Core31TestProject.MainTestFiles
 
         private async Task FirstTest()
         {
-            throw new NotImplementedException();
+            var flist = Directory.GetFiles("D:\\TmpDocs");
+            var fn = Path.GetFileName(flist[0]);
         }
     }
 }
