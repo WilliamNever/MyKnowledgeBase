@@ -16,6 +16,9 @@ namespace Core31TestProject.MainTestFiles
 
         private async Task FirstTest()
         {
+            string str = "_ssss";
+            var indexOf = str.IndexOf('_');
+            var subStr = str.Substring(0, indexOf);
             var flist = Directory.GetFiles("D:\\TmpDocs");
             var fn = Path.GetFileName(flist[0]);
         }
