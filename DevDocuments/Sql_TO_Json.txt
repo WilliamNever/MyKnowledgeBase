@@ -1,0 +1,10 @@
+declare @json nvarchar(max)='[{"aa":"sss","bb":"ccssv"},{"aa":"sss1","bb":"ccssv1"}]'
+select ISJSON(@json)
+select JSON_VALUE(@json,'$[1].bb')
+select * from OPENJSON(@json) --where [key]=1
+
+select @json
+
+
+JSON_QUERY(expression[,path])
+JSON_MODIFY(expression,path,newValue)
