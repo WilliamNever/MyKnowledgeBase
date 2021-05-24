@@ -16,6 +16,9 @@ namespace Core31TestProject.MainTestFiles
 
         private async Task FirstTest()
         {
+            string ssst = "aaa";
+            ssst ??= new string("Hello");
+            Console.WriteLine(DateTime.UtcNow.ToString("yyyyMMdd").Substring(1));
             string str = "_ssss";
             var indexOf = str.IndexOf('_');
             var subStr = str.Substring(0, indexOf);
