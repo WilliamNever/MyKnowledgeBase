@@ -28,7 +28,7 @@ namespace Core31TestProject.Models
         public async Task<NameContainer> ChangeValueForRefTest(NameContainer emply)
         {
             string HeaderPrefix = "Hello ";
-            emply.Name = $"{HeaderPrefix}{emply.Name}";
+            emply.FirstName = $"{HeaderPrefix}{emply.FirstName}";
             return emply;
         }
 
@@ -64,6 +64,13 @@ namespace Core31TestProject.Models
 
     public class NameContainer
     {
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string MiddleNames { get; set; }
+        public string LastName { get; set; }
+        public override string ToString()
+        {
+            string mName = string.IsNullOrEmpty(MiddleNames) ? "" : $"{MiddleNames} ";
+            return $"{FirstName} {mName}{LastName}";
+        }
     }
 }

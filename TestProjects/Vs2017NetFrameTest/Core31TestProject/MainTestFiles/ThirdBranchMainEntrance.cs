@@ -16,6 +16,10 @@ namespace Core31TestProject.MainTestFiles
 
         private async Task FirstTest()
         {
+            NameContainer nc = new NameContainer { FirstName="fn", MiddleNames="mn", LastName="ln" };
+            Console.WriteLine($"|{nc}|");
+            Console.WriteLine(nc.GetFullName());
+
             string ssst = "aaa";
             ssst ??= new string("Hello");
             Console.WriteLine(DateTime.UtcNow.ToString("yyyyMMdd").Substring(1));
