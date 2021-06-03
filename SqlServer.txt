@@ -2,6 +2,7 @@
 declare @tabledec table
 (
     id INT identity,
+    Oid int INDEX IndexNameOidIndex NONCLUSTERED,	--为表变量增加列索引，当前加的是non-clustered索引。这样，以此列的查寻会变快，提高运行效率。
     num NVARCHAR(20)
 )
 

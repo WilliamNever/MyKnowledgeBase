@@ -288,12 +288,12 @@ namespace Core31TestProject
         private static void ListEntityTEST()
         {
             var list = new List<NameContainer>() {
-                new NameContainer{ Name="aaa" },
-                new NameContainer{  Name="bbb"}
+                new NameContainer{ FirstName="aaa" },
+                new NameContainer{  FirstName="bbb"}
             };
             var itm = list.FirstOrDefault();
             list.RemoveAll(x => true);
-            itm.Name = "CCC";
+            itm.FirstName = "CCC";
         }
 
         private static void StaticConstructureTEST()
@@ -459,7 +459,7 @@ namespace Core31TestProject
             var taskNum = ems.Skip(-1).Take(1).ToList();
 
             string strReturned, NameString = "William";
-            var NameObj = new NameContainer { Name = "William" };
+            var NameObj = new NameContainer { FirstName = "William" };
             Employee em, newEm;
             var task = Task.Run(async () => {
                 em = new Employee();

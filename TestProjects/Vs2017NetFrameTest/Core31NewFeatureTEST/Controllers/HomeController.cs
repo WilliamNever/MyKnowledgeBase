@@ -22,6 +22,9 @@ namespace Core31NewFeatureTEST.Controllers
         public IActionResult Index()
         {
             StringValues xx = new StringValues();
+            //return View("../VCSee/index");
+            //return View("/views/VCSee/index.cshtml");
+            //return View("~/views/VCSee/index.cshtml");
             return View();
         }
 
