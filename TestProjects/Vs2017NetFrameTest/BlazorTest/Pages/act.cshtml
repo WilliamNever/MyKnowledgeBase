@@ -1,0 +1,14 @@
+﻿@page
+@namespace BlazorTest.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model BlazorTest.Pages.actModel
+@{
+    Layout = "_Layout";
+}
+
+<div>
+    Show the ACT Page
+</div>
+<div>
+    <component type="typeof(Counter)" render-mode="ServerPrerendered" param-currentCount="@Model.StartIndex" />
+</div>
