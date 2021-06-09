@@ -13,3 +13,10 @@
         <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
     </div>
 }
+
+@code{
+    public Counter():base()
+    {
+        currentCount = 30;
+    }
+}

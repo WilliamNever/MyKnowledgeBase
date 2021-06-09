@@ -13,6 +13,11 @@ namespace BlazorTest.Pages
 
         protected bool isShow = true;
 
+        public CounterBase()
+        {
+
+        }
+
         protected void IncrementCount()
         {
             currentCount++;
