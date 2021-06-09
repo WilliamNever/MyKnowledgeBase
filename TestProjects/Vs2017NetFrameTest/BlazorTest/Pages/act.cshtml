@@ -1,5 +1,6 @@
 ﻿@page
 @namespace BlazorTest.Pages
+
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model BlazorTest.Pages.actModel
 @{
@@ -10,5 +11,19 @@
     Show the ACT Page
 </div>
 <div>
-    <component type="typeof(Counter)" render-mode="ServerPrerendered" param-currentCount="@Model.StartIndex" />
+    @for (int i = 0; i < 5; i++)
+    {
+        <div>
+            <div>component @i</div>
+            <component type="typeof(Counter)" render-mode="ServerPrerendered" param-currentCount="@Model.StartIndex" />
+        </div>
+    }
+
+    @for (int i = 0; i < 5; i++)
+    {
+        <div>
+            <div>View @i</div>
+            <partial name="PartailViews/InforShowView" model="i" />
+        </div>
+    }
 </div>
