@@ -1,4 +1,5 @@
 ﻿@page "/counter"
+@inherits CounterBase
 <div>
     <input type="button" @onclick="SOH" value="Show Or Hide" />
 </div>
@@ -11,24 +12,4 @@
 
         <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
     </div>
-}
-
-@code {
-    [Parameter]
-    public int currentCount { get; set; } = 0;
-
-    private bool isShow = true;
-
-    private void IncrementCount()
-    {
-        currentCount++;
-    }
-    private void SOH()
-    {
-        isShow = !isShow;
-    }
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-    }
 }
