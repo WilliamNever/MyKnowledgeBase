@@ -1,0 +1,144 @@
+﻿@page "/InforCreateOrEdit/{id:int?}"
+@using BlazorTest.Models;
+@using BlazorTest.DBContext;
+
+@inject BlazorInforTestDBC DbContext;
+@inject Microsoft.AspNetCore.Components.NavigationManager Navigation
+
+<h3>InforCreateOrEdit</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        <EditForm Model="model" OnValidSubmit="CreateOrUpdate">
+            @*<form @onsubmit="CreateOrUpdate">*@
+            @*<form @onsubmit="()=>CreateOrUpdate(model)">*@
+            <DataAnnotationsValidator />
+            <div class="alert alert-danger">
+                <ValidationSummary />
+            </div>
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input for="Name" class="form-control" @bind="model.Name" />
+                <ValidationMessage For="()=>model.Name" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label">Email</label>
+                <input asp-for="Email" class="form-control" @bind="model.Email" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Addr" class="control-label">Address</label>
+                <input asp-for="Addr" class="form-control" @bind="model.Addr" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label">Phone Number</label>
+                <input asp-for="Phone" class="form-control" @bind="model.Phone" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="button" value="Cancel" @onclick="@cancel" class="btn btn-warning" />
+            </div>
+        </EditForm>
+    </div>
+    <input type="hidden" @bind="model.Id" />
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div>Manual validation</div>
+        <EditForm EditContext="@context" OnValidSubmit="ValidatedCreateOrUpdate" OnInvalidSubmit="ShowErrMsgs">
+            <DataAnnotationsValidator />
+            @if (isShowValidMsg)
+            {
+                <div class="alert alert-danger">
+                    <ValidationSummary />
+                </div>
+            }
+            <div class="form-group">
+                <label for="Name" class="control-label">Name</label>
+                <input for="Name" class="form-control" @bind="model.Name" />
+                <ValidationMessage For="()=>model.Name" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label">Email</label>
+                <input asp-for="Email" class="form-control" @bind="model.Email" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Addr" class="control-label">Address</label>
+                <input asp-for="Addr" class="form-control" @bind="model.Addr" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label">Phone Number</label>
+                <input asp-for="Phone" class="form-control" @bind="model.Phone" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="button" value="Cancel" @onclick="@cancel" class="btn btn-warning" />
+            </div>
+        </EditForm>
+    </div>
+    <input type="hidden" @bind="model.Id" />
+</div>
+
+
+@code {
+    [Parameter]
+    public int id { get; set; } = 0;
+    public InforModel model { get; set; } = new InforModel();
+    private bool isShowValidMsg = false;
+
+    EditContext context;
+    protected override void OnInitialized()
+    {
+        context = new EditContext(model);
+    }
+
+    private void ValidatedCreateOrUpdate()
+    {
+        var isValid = context.Validate();
+        if (isValid)
+        {
+            isShowValidMsg = false;
+            //验证通过
+        }
+    }
+
+    private void ShowErrMsgs()
+    {
+        isShowValidMsg = true;
+    }
+
+    private void CreateOrUpdate([Microsoft.AspNetCore.Mvc.FromBody] InforModel model1)
+    {
+        if (model1.Id == 0)
+        {
+            DbContext.Add(model1);
+            DbContext.SaveChanges();
+        }
+        else
+        {
+            DbContext.InforModels.Update(model1);
+            DbContext.SaveChanges();
+        }
+        Navigation.NavigateTo("/");
+    }
+
+    private void CreateOrUpdate()
+    {
+        if (model.Id == 0)
+        {
+            DbContext.Add(model);
+            DbContext.SaveChanges();
+        }
+        else
+        {
+            DbContext.InforModels.Update(model);
+            DbContext.SaveChanges();
+        }
+        Navigation.NavigateTo("/");
+    }
+
+    void cancel()
+    {
+        Navigation.NavigateTo("/");
+    }
+}
