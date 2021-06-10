@@ -1,0 +1,22 @@
+﻿@page "/counter/{currentCount:int?}"
+@inherits CounterBase
+<div>
+    <input type="button" @onclick="SOH" value="Show Or Hide" />
+</div>
+@if (isShow)
+{
+    <div>
+        <h1>Counter</h1>
+
+        <p>Current count: @currentCount</p>
+
+        <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+    </div>
+}
+
+@code{
+    public Counter():base()
+    {
+        currentCount = 30;
+    }
+}

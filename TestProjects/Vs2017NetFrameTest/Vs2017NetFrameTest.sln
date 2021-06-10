@@ -39,6 +39,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Standard21TestProject", "St
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HostTest", "HostTest\HostTest.csproj", "{0923767A-335C-42EC-A885-EED21E2AECA9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorTest", "BlazorTest\BlazorTest.csproj", "{3B29C965-05DB-4A4F-8702-BED579B1D3BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,10 @@ Global
 		{0923767A-335C-42EC-A885-EED21E2AECA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0923767A-335C-42EC-A885-EED21E2AECA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0923767A-335C-42EC-A885-EED21E2AECA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B29C965-05DB-4A4F-8702-BED579B1D3BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B29C965-05DB-4A4F-8702-BED579B1D3BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B29C965-05DB-4A4F-8702-BED579B1D3BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B29C965-05DB-4A4F-8702-BED579B1D3BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
