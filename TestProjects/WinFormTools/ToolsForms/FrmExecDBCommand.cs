@@ -130,7 +130,8 @@ namespace WinFormTools.ToolsForms
             {
                 cmbPages.Items.Add((i + 1).ToString());
             }
-            cmbPages.SelectedIndex = 0;
+            if (tpage > 0)
+                cmbPages.SelectedIndex = 0;
         }
 
         private DataTable GetPagedTable(DataTable table, int page/* the page is actual page, first page number is 0 */)
