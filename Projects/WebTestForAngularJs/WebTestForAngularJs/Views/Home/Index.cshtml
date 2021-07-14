@@ -83,6 +83,30 @@
                 );
             };
 
+            $scope.MergeJson = function () {
+                var aaa = {
+                    "schema": "MONY01",
+                    "adaction_cd": "PRSI",
+                    "moduleCode": "PRDRFS"
+                };
+                var bbb = {
+                    "record": {
+                        "immediate": true,
+                        "hits_cnt": 1,
+                        "product_id": 11,
+                        "ad_id": 111,
+                        "adindex": '111',
+                        "appCode": "0247",
+                        "appVersion": "1.0.0",
+                        "moduleVersion": "-1",
+                        "moduleVersionId": "-1"
+                    }
+                };
+
+                angular.merge(bbb.record, aaa);
+                $scope.MergedString = JSON.stringify(bbb);
+            };
+
             $scope.GetAgeIllr = function (age) {
                 return (age > 100) ? 'Error Age' : age;
             };
@@ -104,6 +128,10 @@
 }
 
 <div data-ng-controller="myHttpTest">
+    <div class="row">
+        <input type="text" name="AngularMergeTest" data-ng-model="MergedString" />
+        <input type="button" value="MergeJson" data-ng-click="MergeJson();" />
+    </div>
     <form name="myForm">
         <div class="row">
             <div class="col-sm-3"><input type="button" value="Search" data-ng-click="Search();" /></div>
