@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Core31TestProject.MainTestFiles
@@ -12,7 +13,30 @@ namespace Core31TestProject.MainTestFiles
         public override void MainRun()
         {
             //Task.WaitAll(FirstTest());
-            Task.WaitAll(JsonSerialTest());
+            //Task.WaitAll(JsonSerialTest());
+            Task.WaitAll(TaskDiscardTest());
+        }
+
+        private async Task TaskDiscardTest()
+        {
+            int maxLoop = 10;
+            _ = Task.Run(()=> {
+                for (int i = 0; i < maxLoop; i++)
+                {
+                    Console.WriteLine($"t1 - {i}");
+                    Thread.Sleep(1000);
+                }
+            });
+            var t2 = Task.Run(()=> {
+                for (int i = 0; i < maxLoop; i++)
+                {
+                    Console.WriteLine($"t2 - {i}");
+                    Thread.Sleep(500);
+                }
+            });
+
+            //await t1;
+            await t2;
         }
 
         private async Task JsonSerialTest()
