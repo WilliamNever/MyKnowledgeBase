@@ -37,6 +37,7 @@ namespace Core31TestProject.MainTestFiles
 
             //await t1;
             await t2;
+
         }
 
         private async Task JsonSerialTest()
